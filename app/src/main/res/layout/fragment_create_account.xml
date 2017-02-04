@@ -1,0 +1,82 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_add_course"
+    android:name="uw.tacoma.edu.hobbyfinder.LogInFragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".CreateAccountFragment">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="@string/app_name"
+        android:ems="20"
+        android:textAppearance="@style/TextAppearance.CastMiniController.Title" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/first_name_hint"
+        android:id="@+id/create_first_name" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/last_name_hint"
+        android:id="@+id/create_last_name" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/email_hint"
+        android:id="@+id/create_email" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/password_hint"
+        android:id="@+id/create_password" />
+
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/password_retype_hint"
+        android:id="@+id/create_retype_password" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/zipcode_hint"
+        android:id="@+id/create_zipcode" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="@string/radius_prompt"
+        android:ems="20"
+        android:textAppearance="@style/TextAppearance.CastMiniController.Title" />
+
+    <!--<Spinner-->
+        <!--android:id="@+id/static_spinner"-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginBottom="20dp"-->
+        <!--android:layout_marginTop="20dp" />-->
+
+    <Spinner
+        android:id="@+id/dynamic_spinner"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:id="@+id/add_account_frag_button"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:text="@string/add_account_text" />
+</LinearLayout>

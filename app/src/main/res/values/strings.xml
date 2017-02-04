@@ -1,5 +1,25 @@
 <resources>
     <string name="app_name">HobbyFinder</string>
     <string name="facebook_app_id">398638680487068</string>
+    <string name="first_name_hint">First name</string>
+    <string name="last_name_hint">Last name</string>
+    <string name="user_name_hint">User name</string>
+    <string name="email_hint">Email</string>
+    <string name="password_hint">Password</string>
+    <string name="password_retype_hint">Retype password</string>
+    <string name="zipcode_hint">Zip code</string>
+    <string name="create_account_button">Create Account</string>
+    <string name="add_account_text">Add Account</string>
+    <string name="radius_prompt">Choose a radius distance from Zip Code</string>
 
+    <string-array name="radius_array">
+        <item>5</item>
+        <item>10</item>
+        <item>15</item>
+        <item>30</item>
+        <item>40</item>
+        <item>50</item>
+        <item>100</item>
+        <item>200</item>
+    </string-array>
 </resources>

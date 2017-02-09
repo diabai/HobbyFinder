@@ -17,6 +17,7 @@ import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
+import com.facebook.login.LoginBehavior;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
@@ -71,6 +72,7 @@ public class LogInFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
     }
 
     @Override
@@ -82,30 +84,22 @@ public class LogInFragment extends Fragment {
 
         // Initializing
         loginButton = (LoginButton) v.findViewById(R.id.login_button);
-        txtView = (TextView) v.findViewById(R.id.text_view);
-        callbackManager = CallbackManager.Factory.create();
-
+        txtView = (TextView) v.findViewById(R.id.log_in_txtView);
         loginButton.setFragment(this);
 
         // Requesting permissions to access the following info from the user's facebook account
         loginButton.setReadPermissions(Arrays.asList(
-                "public_profile", "user_photos","email", "user_birthday", "user_hometown", "user_location"));
+                "public_profile", "email", "user_birthday", "user_friends"));
+
+        callbackManager = CallbackManager.Factory.create();
 
         // Callback registration
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-
-                /*txtView.setText("Login success \n" +
-                        loginResult.getAccessToken().getUserId() + " \n\n" +
-                        loginResult.getAccessToken().getToken());*/
-
-
                 // App code
-                //GraphRequest to get data from user's account
-                GraphRequest request = GraphRequest.newMeRequest(
-                        loginResult.getAccessToken(),
-                        new GraphRequest.GraphJSONObjectCallback() {
+                GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(),
+                        new GraphRequest.GraphJSONObjectCallback(){
                             @Override
                             public void onCompleted(JSONObject object, GraphResponse response) {
                                 Log.v("LoginActivity", response.toString());
@@ -113,11 +107,15 @@ public class LogInFragment extends Fragment {
                                 // Application code
                                 try {
                                     String email = object.getString("email");
-
+                                    String name = object.getString("name");
                                     String birthday = object.getString("birthday"); // 01/31/1980 format
-                                    txtView.setText("Email:  " + email +
-                                          "\n\nBirthday: " + birthday);
 
+                                    txtView.setText("Email: " + email + " \n" +
+                                            "Name: " + name + " \n"+
+                                            "BIrthday: " + birthday);
+
+                                    /*The line below will get all the fields available in the JSON object*/
+                                  /*  txtView.setText(object.names().toString());*/
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
@@ -128,7 +126,16 @@ public class LogInFragment extends Fragment {
                 parameters.putString("fields", "id,name,email,gender,birthday");
                 request.setParameters(parameters);
                 request.executeAsync();
+
+
             }
+
+             /*   txtView.setText("Login success \n" +
+                        loginResult.getAccessToken().getUserId() + " \n\n" +
+                        loginResult.getAccessToken().getToken());*/
+
+
+
 
             @Override
             public void onCancel() {

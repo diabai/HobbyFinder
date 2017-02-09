@@ -12,8 +12,8 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
+
         if (findViewById(R.id.fragment_container) != null) {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.fragment_container, new LogInFragment())
@@ -38,5 +38,6 @@ public class MainActivity extends AppCompatActivity implements
     public void createAccount(String url) {
 
     }
+
 }
 

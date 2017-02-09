@@ -14,7 +14,6 @@ public class MainActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
-
         if (findViewById(R.id.fragment_container) != null) {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.fragment_container, new LogInFragment())
@@ -25,14 +24,14 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onListFragmentInteraction(UserContent.UserItem item) {
-        LogInFragment logInFrag = new LogInFragment();
+     /*   LogInFragment logInFrag = new LogInFragment();
         Bundle args = new Bundle();
         logInFrag.setArguments(args);
 
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, logInFrag)
                 .addToBackStack(null)
-                .commit();
+                .commit();*/
     }
 
     @Override

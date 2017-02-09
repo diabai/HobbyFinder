@@ -34,22 +34,9 @@ public class MainActivity extends AppCompatActivity implements
                 .commit();*/
     }
 
-                @Override
-                public void onCancel() {
-                    txtView.setText("Login cancelled");
-                }
-
-                @Override
-                public void onError(FacebookException error) {
-
-                }
-            });
-        System.out.println("added");
-
-    }
-
     @Override
     public void createAccount(String url) {
+
     }
 }
 

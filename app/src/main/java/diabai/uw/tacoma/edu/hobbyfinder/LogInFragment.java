@@ -4,17 +4,26 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.Arrays;
 
 import diabai.uw.tacoma.edu.hobbyfinder.user.UserContent;
 
@@ -26,9 +35,10 @@ public class LogInFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    LoginButton loginButton;
-    CallbackManager callbackManager;
-    TextView txtView;
+    private LoginButton loginButton;
+    private Button createAccount;
+    private CallbackManager callbackManager;
+    private TextView txtView;
 
 
     private OnListFragmentInteractionListener mListener;
@@ -67,35 +77,72 @@ public class LogInFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        //Inflating the layout when this fragment is launched
         View v = inflater.inflate(R.layout.fragment_log_in, container, false);
 
+        // Initializing
         loginButton = (LoginButton) v.findViewById(R.id.login_button);
         txtView = (TextView) v.findViewById(R.id.text_view);
         callbackManager = CallbackManager.Factory.create();
+
         loginButton.setFragment(this);
+
+        // Requesting permissions to access the following info from the user's facebook account
+        loginButton.setReadPermissions(Arrays.asList(
+                "public_profile", "user_photos","email", "user_birthday", "user_hometown", "user_location"));
+
+        // Callback registration
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
 
-                txtView.setText("Login success \n" +
-                        loginResult.getAccessToken().getUserId() + " \n" +
-                        loginResult.getAccessToken().getToken());
-                System.out.println("success");
+                /*txtView.setText("Login success \n" +
+                        loginResult.getAccessToken().getUserId() + " \n\n" +
+                        loginResult.getAccessToken().getToken());*/
+
+
+                // App code
+                GraphRequest request = GraphRequest.newMeRequest(
+                        loginResult.getAccessToken(),
+                        new GraphRequest.GraphJSONObjectCallback() {
+                            @Override
+                            public void onCompleted(JSONObject object, GraphResponse response) {
+                                Log.v("LoginActivity", response.toString());
+
+                                // Application code
+                                try {
+                                    String email = object.getString("email");
+
+                                    String birthday = object.getString("birthday"); // 01/31/1980 format
+                                    txtView.setText("Email:  " + email +
+                                          "\n\nBirthday: " + birthday);
+
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+
+                            }
+                        });
+                Bundle parameters = new Bundle();
+                parameters.putString("fields", "id,name,email,gender,birthday");
+                request.setParameters(parameters);
+                request.executeAsync();
             }
 
             @Override
             public void onCancel() {
                 txtView.setText("Login cancelled");
-                System.out.println("cancel");
+
             }
 
             @Override
             public void onError(FacebookException error) {
-                System.out.println("error");
+                // Log in case we get an exception while logging in
+                Log.v("LoginActivity onError", error.getCause().toString());
             }
         });
 
-        Button createAccount = (Button) v.findViewById(R.id.create_account_button);
+       createAccount = (Button) v.findViewById(R.id.create_account_button);
         createAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

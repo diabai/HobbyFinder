@@ -7,17 +7,17 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import diabai.uw.tacoma.edu.hobbyfinder.LogInFragment.OnListFragmentInteractionListener;
-import diabai.uw.tacoma.edu.hobbyfinder.user.UserContent.UserItem;
+import diabai.uw.tacoma.edu.hobbyfinder.user.User;
 
 import java.util.List;
 
 
 public class MyUserRecyclerViewAdapter extends RecyclerView.Adapter<MyUserRecyclerViewAdapter.ViewHolder> {
 
-    private final List<UserItem> mValues;
+    private final List<User> mValues;
     private final OnListFragmentInteractionListener mListener;
 
-    public MyUserRecyclerViewAdapter(List<UserItem> items, OnListFragmentInteractionListener listener) {
+    public MyUserRecyclerViewAdapter(List<User> items, OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }
@@ -32,8 +32,9 @@ public class MyUserRecyclerViewAdapter extends RecyclerView.Adapter<MyUserRecycl
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).content);
+        holder.mIdView.setText(mValues.get(position).getmId());
+        holder.mNameView.setText(mValues.get(position).getmName());
+        holder.mEmailView.setText(mValues.get(position).getmEmail());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,19 +56,21 @@ public class MyUserRecyclerViewAdapter extends RecyclerView.Adapter<MyUserRecycl
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
         public final TextView mIdView;
-        public final TextView mContentView;
-        public UserItem mItem;
+        public final TextView mNameView;
+        public final TextView mEmailView;
+        public User mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
             mIdView = (TextView) view.findViewById(R.id.id);
-            mContentView = (TextView) view.findViewById(R.id.content);
+            mNameView = (TextView) view.findViewById(R.id.name);
+            mEmailView = (TextView) view.findViewById(R.id.email);
         }
 
         @Override
         public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
+            return super.toString() + " '" + mNameView.getText() + "'" + mEmailView.getText() + "";
         }
     }
 }

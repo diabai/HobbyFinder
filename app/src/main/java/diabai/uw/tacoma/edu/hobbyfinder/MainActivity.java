@@ -3,7 +3,7 @@ package diabai.uw.tacoma.edu.hobbyfinder;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import diabai.uw.tacoma.edu.hobbyfinder.user.UserContent;
+import diabai.uw.tacoma.edu.hobbyfinder.user.User;
 
 public class MainActivity extends AppCompatActivity implements
         LogInFragment.OnListFragmentInteractionListener,
@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity implements
 
 
     @Override
-    public void onListFragmentInteraction(UserContent.UserItem item) {
+    public void onListFragmentInteraction(User user) {
      /*   LogInFragment logInFrag = new LogInFragment();
         Bundle args = new Bundle();
         logInFrag.setArguments(args);

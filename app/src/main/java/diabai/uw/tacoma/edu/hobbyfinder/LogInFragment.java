@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -25,7 +24,7 @@ import org.json.JSONObject;
 
 import java.util.Arrays;
 
-import diabai.uw.tacoma.edu.hobbyfinder.user.UserContent;
+import diabai.uw.tacoma.edu.hobbyfinder.user.User;
 
 
 public class LogInFragment extends Fragment {
@@ -193,6 +192,6 @@ public class LogInFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnListFragmentInteractionListener {
-        void onListFragmentInteraction(UserContent.UserItem item);
+        void onListFragmentInteraction(User user);
     }
 }

@@ -102,6 +102,7 @@ public class LogInFragment extends Fragment {
 
 
                 // App code
+                //GraphRequest to get data from user's account
                 GraphRequest request = GraphRequest.newMeRequest(
                         loginResult.getAccessToken(),
                         new GraphRequest.GraphJSONObjectCallback() {

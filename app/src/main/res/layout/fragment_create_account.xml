@@ -7,44 +7,33 @@
     android:orientation="vertical"
     tools:context=".CreateAccountFragment">
 
-
+    <!--Text view of App title-->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:text="@string/app_name"
         android:ems="20"/>
-
+    <!--First name can enter or take from facebook-->
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/first_name_hint"
         android:id="@+id/create_first_name" />
 
+    <!--Last name can enter or take from facebook-->
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/last_name_hint"
         android:id="@+id/create_last_name" />
 
+    <!--email can enter or take from facebook-->
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/email_hint"
         android:id="@+id/create_email" />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/password_hint"
-        android:id="@+id/create_password" />
-
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/password_retype_hint"
-        android:id="@+id/create_retype_password" />
 
     <EditText
         android:layout_width="match_parent"
@@ -59,18 +48,12 @@
         android:text="@string/radius_prompt"
         android:ems="20"/>
 
-    <!--<Spinner-->
-        <!--android:id="@+id/static_spinner"-->
-        <!--android:layout_width="fill_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginBottom="20dp"-->
-        <!--android:layout_marginTop="20dp" />-->
-
+    <!--Drop down for radius-->
     <Spinner
         android:id="@+id/dynamic_spinner"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" />
-
+    <!--Submit new account button-->
     <Button
         android:layout_width="wrap_content"
         android:id="@+id/add_account_frag_button"

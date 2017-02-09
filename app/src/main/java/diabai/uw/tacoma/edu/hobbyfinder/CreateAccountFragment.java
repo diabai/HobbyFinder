@@ -12,13 +12,12 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 /**
- *
+ * This is the Create Account fragment. Once a user logs in thru
+ * facebook this fragment will show.
  */
 public class CreateAccountFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    private String mParam1;
-    private String mParam2;
 
     private CreateAccountFragmentInteractionListener mListener;
 
@@ -39,8 +38,8 @@ public class CreateAccountFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            String mParam1 = getArguments().getString(ARG_PARAM1);
+            String mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
 
@@ -50,30 +49,16 @@ public class CreateAccountFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_create_account, container, false);
 
-//        Spinner staticSpinner = (Spinner) view.findViewById(R.id.static_spinner);
-
-        // Create an ArrayAdapter using the string array and a default spinner
-//        ArrayAdapter<CharSequence> staticAdapter = ArrayAdapter
-//                .createFromResource(getActivity().getBaseContext(), R.array.radius_array,
-//                        android.R.layout.simple_spinner_item);
-
-        // Specify the layout to use when the list of choices appears
-//        staticAdapter
-//                .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-//        // Apply the adapter to the spinner
-//        staticSpinner.setAdapter(staticAdapter);
-
+        // This is the array used for the radius fro zip code drop down
         Spinner dynamicSpinner = (Spinner) view.findViewById(R.id.dynamic_spinner);
+        String[] miles = new String[] { "5", "10", "15", "20", "50", "100" };
 
-        String[] items = new String[] { "5", "10", "15", "20", "50", "100" };
-
-
+        // Apply the array of miles into the drop down.
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity().getBaseContext(),
-                android.R.layout.simple_spinner_item, items);
-
+                android.R.layout.simple_spinner_item, miles);
         dynamicSpinner.setAdapter(adapter);
 
+        // Set listener on drop down
         dynamicSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view,
@@ -83,7 +68,6 @@ public class CreateAccountFragment extends Fragment {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                // TODO Auto-generated method stub
             }
         });
         return view;
@@ -92,7 +76,6 @@ public class CreateAccountFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-
     }
 
     @Override
@@ -123,7 +106,7 @@ public class CreateAccountFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface CreateAccountFragmentInteractionListener {
+        // Once a user hits the submit account button.
         public void createAccount(String url);
     }
-
 }

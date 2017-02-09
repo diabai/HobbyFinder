@@ -13,8 +13,7 @@
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:text="@string/app_name"
-        android:ems="20"
-        android:textAppearance="@style/TextAppearance.CastMiniController.Title" />
+        android:ems="20"/>
 
     <EditText
         android:layout_width="match_parent"
@@ -58,8 +57,7 @@
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:text="@string/radius_prompt"
-        android:ems="20"
-        android:textAppearance="@style/TextAppearance.CastMiniController.Title" />
+        android:ems="20"/>
 
     <!--<Spinner-->
         <!--android:id="@+id/static_spinner"-->

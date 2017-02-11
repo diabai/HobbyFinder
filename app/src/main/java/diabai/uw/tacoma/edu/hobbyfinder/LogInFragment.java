@@ -159,14 +159,13 @@ public class LogInFragment extends Fragment {
 
                                   /*  The line below will get all the fields available in the JSON object*/
                                  /*   mTxtView.setText("Object.names: " + object.names().toString());*/
+                                mProfilePictureView = (ProfilePictureView) getActivity().findViewById(R.id.pro_image);
+                                mProfilePictureView.setProfileId(id);
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
                         }
                     });
-
-                       mProfilePictureView = (ProfilePictureView) getActivity().findViewById(R.id.pro_image);
-                       mProfilePictureView.setProfileId(profile.getId());
 
             //Saving the stuff in case we need to use it in another fragment
             Bundle parameters = new Bundle();

@@ -21,22 +21,28 @@ public class MainActivity extends AppCompatActivity implements
         }
     }
 
-
-    @Override
-    public void onListFragmentInteraction(User user) {
-     /*   LogInFragment logInFrag = new LogInFragment();
-        Bundle args = new Bundle();
-        logInFrag.setArguments(args);
-
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, logInFrag)
-                .addToBackStack(null)
-                .commit();*/
-    }
-
     @Override
     public void createAccount(String url) {
 
+    }
+
+    /**
+     * When passing information from facebook to
+     * create account screen.
+     *
+     * @param user
+     */
+    @Override
+    public void setUser(User user) {
+        CreateAccountFragment createAccountFragment = new CreateAccountFragment();
+        Bundle args = new Bundle();
+        args.putSerializable(LogInFragment.USER_SELECTED, user);
+        createAccountFragment.setArguments(args);
+
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, createAccountFragment)
+                .addToBackStack(null)
+                .commit();
     }
 
 }

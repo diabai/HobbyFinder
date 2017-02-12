@@ -10,6 +10,9 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
+
+import diabai.uw.tacoma.edu.hobbyfinder.user.User;
 
 /**
  * This is the Create Account fragment. Once a user logs in thru
@@ -18,6 +21,7 @@ import android.widget.Spinner;
 public class CreateAccountFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    public final static String USER_SELECTED = "user_selected";
 
     private CreateAccountFragmentInteractionListener mListener;
 
@@ -57,6 +61,10 @@ public class CreateAccountFragment extends Fragment {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity().getBaseContext(),
                 android.R.layout.simple_spinner_item, miles);
         dynamicSpinner.setAdapter(adapter);
+        TextView mUserName = (TextView) view.findViewById(R.id.create_name);
+        TextView mUserEmail = (TextView) view.findViewById(R.id.create_email);
+        TextView mUserGender = (TextView) view.findViewById(R.id.create_gender);
+        TextView mUserHomeTown = (TextView) view.findViewById(R.id.create_hometown);
 
         // Set listener on drop down
         dynamicSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -71,6 +79,38 @@ public class CreateAccountFragment extends Fragment {
             }
         });
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // During startup, check if there are arguments passed to the fragment.
+        // onStart is a good place to do this because the layout has already been
+        // applied to the fragment at this point so we can safely call the method
+        // below that sets the users text.
+        Bundle args = getArguments();
+        if (args != null) {
+            // Set the textviews to the user passed in
+            updateUserView((User) args.getSerializable(USER_SELECTED));
+        }
+    }
+
+    /*
+        Updates the create account text views with the user passed in.
+     */
+    public void updateUserView(User user) {
+        TextView userNameTextView = (TextView) getActivity().findViewById(R.id.create_name);
+        userNameTextView.setText(user.getmName());
+
+        TextView userEmailTextView = (TextView) getActivity().findViewById(R.id.create_email);
+        userEmailTextView.setText(user.getmEmail());
+
+        TextView userGenderTextView = (TextView) getActivity().findViewById(R.id.create_gender);
+        userGenderTextView.setText(user.getmGender());
+
+        TextView userHomeTownTextView = (TextView) getActivity().findViewById(R.id.create_hometown);
+        userHomeTownTextView.setText(user.getmHomeTown());
     }
 
     @Override

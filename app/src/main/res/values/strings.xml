@@ -7,8 +7,10 @@
     <string name="email_hint">Email</string>
     <string name="password_hint">Password</string>
     <string name="password_retype_hint">Retype password</string>
+    <string name="gender_hint">Gender</string>
+    <string name="hometown_hint">Home town</string>
     <string name="zipcode_hint">Zip code</string>
-    <string name="create_account_button">Create Account</string>
+    <string name="home_page_button">Welcome back! Go to homepage</string>
     <string name="add_account_text">Add Account</string>
     <string name="radius_prompt">Choose a radius distance from Zip Code</string>
 

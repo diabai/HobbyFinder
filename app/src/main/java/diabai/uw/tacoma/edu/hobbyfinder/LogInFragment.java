@@ -17,10 +17,13 @@ import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
+import com.facebook.LoggingBehavior;
 import com.facebook.Profile;
 import com.facebook.ProfileTracker;
+import com.facebook.internal.Utility;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.facebook.login.widget.ProfilePictureView;
@@ -125,7 +128,6 @@ public class LogInFragment extends Fragment {
     @Override
     public void onViewCreated(View v, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(v, savedInstanceState);
-
         // Initializing
         LoginButton mLoginButton = (LoginButton) v.findViewById(R.id.login_button);
         mTxtView = (TextView) v.findViewById(R.id.log_in_txtView);
@@ -133,45 +135,49 @@ public class LogInFragment extends Fragment {
 
         // Requesting permissions to access the following info from the user's facebook account
         mLoginButton.setReadPermissions(Arrays.asList(
-                "public_profile", "email", "user_birthday", "user_friends"));
-
+                "public_profile", "user_birthday", "user_friends"));
 
         // Login button Callback to handle Login related events
         mLoginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
-
 
             /*  onSuccess() GETS CALLED ONLY FIRST TIME USER LOGS IN*/
             @Override
             public void onSuccess(LoginResult loginResult) {
 
                 AccessToken accessToken = loginResult.getAccessToken();
-                Profile profile = Profile.getCurrentProfile();
 
-         /*   NEXT LINE IS ANOTHER WAY TO GET DATA FROM A PROFILE BUT I HAVENT BEEN ABLE TO GET ALL THE INFO WE WANT FROM IT
-          * JUST DO A profile.get... IF YOU ARE INTERESTED */
+                Log.v("getToken ****",accessToken.getToken().toString());
 
-            /*  mTxtView.setText("Name: " + profile.getName() );*/
                 // App code
                 GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(),
                         new GraphRequest.GraphJSONObjectCallback() {
                             @Override
                             public void onCompleted(JSONObject object, GraphResponse response) {
-                                Log.v("LoginActivity", response.toString());
+                                FacebookSdk.addLoggingBehavior(LoggingBehavior.REQUESTS);
+
+                                //To see   permissions are enabled
+                                Log.v("onCompleted ****", AccessToken.getCurrentAccessToken().getPermissions().toString());
+
+                                JSONObject json = response.getJSONObject();
+                                JSONObject hometown = null;
+                                try {
+                                    hometown = json.getJSONObject("hometown");
+                                    final String town = hometown.getString("name");
+                                    Log.v("++++Hometown: ++++ ", town);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
 
                                 // Getting json objects into strings
                                 try {
+
                                     String id = object.getString("id");
                                     String name = object.getString("name");
                                     String email = object.getString("email");
                                     String gender = object.getString("gender");
-                                    String birthday = object.getString("birthday"); // 01/31/1980 format
-
-                                    mTxtView.setText("id: " + id + " \n" +
-                                            "Name: " + name + " \n" +
-                                            "BIrthday: " + birthday);
 
                                   /*  The line below will get all the fields available in the JSON object*/
-                                 /*   mTxtView.setText("Object.names: " + object.names().toString());*/
+                                   /* mTxtView.setText("Object.names: " + object.names().toString());*/
                                     mProfilePictureView = (ProfilePictureView) getActivity().findViewById(R.id.pro_image);
                                     mProfilePictureView.setProfileId(id);
 

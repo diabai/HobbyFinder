@@ -146,9 +146,8 @@ public class LogInFragment extends Fragment {
 
                 AccessToken accessToken = loginResult.getAccessToken();
 
-                Log.v("getToken ****",accessToken.getToken().toString());
 
-                // App code
+                // GraphRequest to get the data needed from the facebook Graph
                 GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(),
                         new GraphRequest.GraphJSONObjectCallback() {
                             @Override

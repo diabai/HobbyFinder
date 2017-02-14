@@ -9,8 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.net.URLEncoder;
 
 import diabai.uw.tacoma.edu.hobbyfinder.user.User;
 
@@ -24,6 +28,14 @@ public class CreateAccountFragment extends Fragment {
     public final static String USER_SELECTED = "user_selected";
 
     private CreateAccountFragmentInteractionListener mListener;
+
+    private final static String USER_ADD_URL
+            = "http://cssgate.insttech.washington.edu/~_450bteam1/addUser.php?";
+    private TextView mUserName;
+    private TextView mUserEmail;
+    private TextView mUserGender;
+    private TextView mUserHomeTown;
+    private String mUserId;
 
     public CreateAccountFragment() {
         // Required empty public constructor
@@ -55,16 +67,16 @@ public class CreateAccountFragment extends Fragment {
 
         // This is the array used for the radius fro zip code drop down
         Spinner dynamicSpinner = (Spinner) view.findViewById(R.id.dynamic_spinner);
-        String[] miles = new String[] { "5", "10", "15", "20", "50", "100" };
+        String[] miles = new String[]{"5", "10", "15", "20", "50", "100"};
 
         // Apply the array of miles into the drop down.
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity().getBaseContext(),
                 android.R.layout.simple_spinner_item, miles);
         dynamicSpinner.setAdapter(adapter);
-        TextView mUserName = (TextView) view.findViewById(R.id.create_name);
-        TextView mUserEmail = (TextView) view.findViewById(R.id.create_email);
-        TextView mUserGender = (TextView) view.findViewById(R.id.create_gender);
-        TextView mUserHomeTown = (TextView) view.findViewById(R.id.create_hometown);
+        mUserName = (TextView) view.findViewById(R.id.create_name);
+        mUserEmail = (TextView) view.findViewById(R.id.create_email);
+        mUserGender = (TextView) view.findViewById(R.id.create_gender);
+        mUserHomeTown = (TextView) view.findViewById(R.id.create_hometown);
 
         // Set listener on drop down
         dynamicSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -76,6 +88,17 @@ public class CreateAccountFragment extends Fragment {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+        // Call the build URl
+        // when using fragments onClick in frags use this
+        Button addCourseButton = (Button) view.findViewById(R.id.add_account_frag_button);
+        addCourseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = buildUserAddURL(v);
+                mListener.createAccount(url);
             }
         });
         return view;
@@ -100,6 +123,8 @@ public class CreateAccountFragment extends Fragment {
         Updates the create account text views with the user passed in.
      */
     public void updateUserView(User user) {
+        mUserId = user.getmId();
+
         TextView userNameTextView = (TextView) getActivity().findViewById(R.id.create_name);
         userNameTextView.setText(user.getmName());
 
@@ -111,6 +136,40 @@ public class CreateAccountFragment extends Fragment {
 
         TextView userHomeTownTextView = (TextView) getActivity().findViewById(R.id.create_hometown);
         userHomeTownTextView.setText(user.getmHomeTown());
+    }
+
+    private String buildUserAddURL(View v) {
+
+        StringBuilder sb = new StringBuilder(USER_ADD_URL);
+
+        try {
+
+            String userId = mUserId;
+            sb.append("id=");
+            sb.append(userId);
+
+            String userName = mUserName.getText().toString();
+            sb.append("&name=");
+            sb.append(URLEncoder.encode(userName, "UTF-8"));
+
+            String userEmail = mUserEmail.getText().toString();
+            sb.append("&email=");
+            sb.append(URLEncoder.encode(userEmail, "UTF-8"));
+
+            String userGender = mUserGender.getText().toString();
+            sb.append("&gender=");
+            sb.append(URLEncoder.encode(userGender, "UTF-8"));
+
+            String userHometown = mUserHomeTown.getText().toString();
+            sb.append("&hometown=");
+            sb.append(URLEncoder.encode(userHometown, "UTF-8"));
+
+            Log.i("UserAddFragment", sb.toString());
+        } catch (Exception e) {
+            Toast.makeText(v.getContext(), "Something wrong with the url" + e.getMessage(), Toast.LENGTH_LONG)
+                    .show();
+        }
+        return sb.toString();
     }
 
     @Override
@@ -147,6 +206,6 @@ public class CreateAccountFragment extends Fragment {
      */
     public interface CreateAccountFragmentInteractionListener {
         // Once a user hits the submit account button.
-        public void createAccount(String url);
+        void createAccount(String url);
     }
 }

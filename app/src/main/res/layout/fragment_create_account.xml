@@ -41,12 +41,6 @@
         android:hint="@string/hometown_hint"
         android:id="@+id/create_hometown" />
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/zipcode_hint"
-        android:id="@+id/create_zipcode" />
-
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

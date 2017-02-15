@@ -43,13 +43,13 @@ public class LogInFragment extends Fragment {
 
     private String mParam1;
     private String mParam2;
+
     private ProfilePictureView mProfilePictureView;
     private OnListFragmentInteractionListener mListener;
     private CallbackManager mCallbackManager;
-    private AccessTokenTracker mTracker;
-    private ProfileTracker mProfileTracker;
     private TextView mTxtView;
     private Boolean isLoggedIn;
+    private Button mHomePageButton;
 
 
     public LogInFragment() {
@@ -71,27 +71,6 @@ public class LogInFragment extends Fragment {
 
         mCallbackManager = CallbackManager.Factory.create();
         isLoggedIn = isLoggedIn();
-
-       /* NOT DONE HERE  /
-      /*  TRACKS THE ACCESS_TOKEN*/
-       /*  mTracker = new AccessTokenTracker() {
-            @Override
-            protected void onCurrentAccessTokenChanged(AccessToken oldToken, AccessToken newToken) {
-
-            }
-        };*/
-
-
-       /*  PROFILE TRACKER*/
-       /* mProfileTracker = new ProfileTracker() {
-            @Override
-            protected void onCurrentProfileChanged(Profile oldProfile, Profile newtProfile) {
-
-            }
-        };
-
-      mProfileTracker.startTracking();*/
-
     }
 
     @Override
@@ -100,26 +79,30 @@ public class LogInFragment extends Fragment {
         //Inflating the layout when this fragment is launched
         View v = inflater.inflate(R.layout.fragment_log_in, container, false);
 
-        /* If a user is recognized then it shows else hidden
-            However we need to check if user is logged in and has account
+        /*
+           However we need to check if user is logged in and has account
             then we show a go to homepage button
              If a user has not created an account then we send over to create
              account with fb credentials.
          */
-        Button mCreateAccount = (Button) v.findViewById(R.id.home_page_button);
-        mCreateAccount.setVisibility(isLoggedIn ? View.VISIBLE : View.INVISIBLE);
-        mCreateAccount.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // change to another fragment or activity such as user homepage
-                CreateAccountFragment courseAddFragment = new CreateAccountFragment();
-                getFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_container, courseAddFragment)
-                        .addToBackStack(null)
-                        .commit();
-            }
-        });
 
+        //If user is logged in display the home page button and add a listener to it
+        if (isLoggedIn) {
+             mHomePageButton= (Button) v.findViewById(R.id.home_page_button);
+        /*    mHomePageButton.setVisibility(isLoggedIn ? View.VISIBLE : View.INVISIBLE);*/
+            mHomePageButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // change to another fragment or activity such as user homepage
+                    CreateAccountFragment createAccountFragment = new CreateAccountFragment();
+                    getFragmentManager().beginTransaction()
+                            .replace(R.id.fragment_container, createAccountFragment)
+                            .addToBackStack(null)
+                            .commit();
+                }
+            });
+
+        }
         return v;
     }
 
@@ -182,7 +165,7 @@ public class LogInFragment extends Fragment {
 
                                     // Once success is done we just send the user information
                                     // over to create account
-                                    mListener.setUser(new User(id, name, email, gender, "hometown"));
+                                    mListener.setUser(new User(id, name, email, gender, ""));
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
@@ -199,6 +182,8 @@ public class LogInFragment extends Fragment {
             @Override
             public void onCancel() {
                 mTxtView.setText("Login cancelled");
+                //NEED TO HIDE THAT HOMEPAGE BUTTON WHEN USER LOGS OUT
+                mHomePageButton.setVisibility(View.INVISIBLE);
 
             }
 
@@ -215,6 +200,7 @@ public class LogInFragment extends Fragment {
         super.onStop();
      /*   mProfileTracker.stopTracking();*/
     }
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -242,7 +228,7 @@ public class LogInFragment extends Fragment {
      * Checks if a user is logged into facebook. We will
      * have to check with DB if user has account as well.
      *
-     * @return boolean if user is logged in
+     * @return true if user is logged in
      */
     public boolean isLoggedIn() {
         AccessToken accessToken = AccessToken.getCurrentAccessToken();

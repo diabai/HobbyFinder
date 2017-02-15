@@ -53,8 +53,17 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" />
     <!--Submit new account button-->
+
     <Button
-        android:layout_width="wrap_content"
+        android:id="@+id/add_hobbies_frag_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:text="@string/add_hobbies"
+        android:onClick="launch"/>
+
+    <Button
+        android:layout_width="match_parent"
         android:id="@+id/add_account_frag_button"
         android:layout_height="wrap_content"
         android:layout_gravity="right"

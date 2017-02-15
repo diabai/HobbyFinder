@@ -1,6 +1,7 @@
 package diabai.uw.tacoma.edu.hobbyfinder;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -14,7 +15,14 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
 
 import diabai.uw.tacoma.edu.hobbyfinder.user.User;
 
@@ -31,6 +39,11 @@ public class CreateAccountFragment extends Fragment {
 
     private final static String USER_ADD_URL
             = "http://cssgate.insttech.washington.edu/~_450bteam1/addUser.php?";
+
+
+
+    private static final String HOBBIES_URL
+            = "http://cssgate.insttech.washington.edu/~_450bteam1/hobbies_list.php?cmd=hobbies";
     private TextView mUserName;
     private TextView mUserEmail;
     private TextView mUserGender;
@@ -93,12 +106,24 @@ public class CreateAccountFragment extends Fragment {
 
         // Call the build URl
         // when using fragments onClick in frags use this
-        Button addCourseButton = (Button) view.findViewById(R.id.add_account_frag_button);
-        addCourseButton.setOnClickListener(new View.OnClickListener() {
+        Button addAccountButton = (Button) view.findViewById(R.id.add_account_frag_button);
+        addAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String url = buildUserAddURL(v);
                 mListener.createAccount(url);
+            }
+        });
+
+        Button addHobbiesButton = (Button) view.findViewById(R.id.add_hobbies_frag_button);
+        addHobbiesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               /* String url = generateUserHobbiesURL(v);// TODO
+                mListener.createAccount(url);*/ // TODO
+
+                /*DownloadCoursesTask task = new DownloadCoursesTask();
+                task.execute(new String[]{COURSE_URL});*/
             }
         });
         return view;
@@ -208,4 +233,70 @@ public class CreateAccountFragment extends Fragment {
         // Once a user hits the submit account button.
         void createAccount(String url);
     }
+
+
+
+
+   /* private class DownloadCoursesTask extends AsyncTask<String, Void, String> {
+
+
+        @Override
+        protected String doInBackground(String... urls) {
+            String response = "";
+            HttpURLConnection urlConnection = null;
+            for (String url : urls) {
+                try {
+                    URL urlObject = new URL(url);
+                    urlConnection = (HttpURLConnection) urlObject.openConnection();
+
+                    InputStream content = urlConnection.getInputStream();
+
+                    BufferedReader buffer = new BufferedReader(new InputStreamReader(content));
+                    String s = "";
+                    while ((s = buffer.readLine()) != null) {
+                        response += s;
+                    }
+
+                } catch (Exception e) {
+                    response = "Unable to download the list of courses, Reason: "
+                            + e.getMessage();
+                }
+                finally {
+                    if (urlConnection != null)
+                        urlConnection.disconnect();
+                }
+            }
+            return response;
+
+        }
+
+
+        @Override
+        protected void onPostExecute(String result) {
+            // Something wrong with the network or the URL.
+            if (result.startsWith("Unable to")) {
+                Toast.makeText(getActivity().getApplicationContext(), result, Toast.LENGTH_LONG)
+                        .show();
+                return;
+            }
+
+            List<Course> courseList = new ArrayList<Course>();
+            result = Course.parseCourseJSON(result, courseList);
+            // Something wrong with the JSON returned.
+            if (result != null) {
+                Toast.makeText(getActivity().getApplicationContext(), result, Toast.LENGTH_LONG)
+                        .show();
+                return;
+            }
+
+            // Everything is good, show the list of courses.
+            if (!courseList.isEmpty()) {
+                mRecyclerView.setAdapter(new MyCourseRecyclerViewAdapter(courseList, mListener));
+            }
+
+        }
+
+
+
+    }*/
 }

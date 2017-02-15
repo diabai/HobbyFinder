@@ -13,6 +13,7 @@
     <string name="home_page_button">Welcome back! Go to homepage</string>
     <string name="add_account_text">Add Account</string>
     <string name="radius_prompt">Choose a radius distance from Zip Code</string>
+    <string name="add_hobbies">Add hobbies</string>
 
     <string-array name="radius_array">
         <item>5</item>
@@ -24,4 +25,18 @@
         <item>100</item>
         <item>200</item>
     </string-array>
+
+
+    <!--  ************************************************* -->
+    <!-- For 3rd fragment MultiListDialog -->
+    <string name="pick_hobbies">Pick Hobbies</string>
+    <array name="hobbies_array">
+        <item name="running">Running</item>
+        <item name="video_games">Video games</item>
+        <item name="laughing">Laughing</item>
+    </array>
+    <string name="add">Add</string>
+    <string name="cancel">Cancel</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

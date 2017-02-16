@@ -12,7 +12,7 @@
     <string name="zipcode_hint">Zip code</string>
     <string name="home_page_button">Welcome back! Go to homepage</string>
     <string name="add_account_text">Add Account</string>
-    <string name="radius_prompt">Choose a radius distance from Zip Code</string>
+    <string name="hobby_prompt">Choose a hobby</string>
     <string name="add_hobbies">Add hobbies</string>
 
     <string-array name="radius_array">

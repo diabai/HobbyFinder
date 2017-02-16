@@ -13,7 +13,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.facebook.AccessToken;
-import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -21,9 +20,6 @@ import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.LoggingBehavior;
-import com.facebook.Profile;
-import com.facebook.ProfileTracker;
-import com.facebook.internal.Utility;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.facebook.login.widget.ProfilePictureView;
@@ -88,7 +84,7 @@ public class LogInFragment extends Fragment {
 
         //If user is logged in display the home page button and add a listener to it
         if (isLoggedIn) {
-             mHomePageButton= (Button) v.findViewById(R.id.home_page_button);
+            mHomePageButton = (Button) v.findViewById(R.id.home_page_button);
         /*    mHomePageButton.setVisibility(isLoggedIn ? View.VISIBLE : View.INVISIBLE);*/
             mHomePageButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -154,9 +150,6 @@ public class LogInFragment extends Fragment {
                                 try {
 
                                     String id = object.getString("id");
-                                    String name = object.getString("name");
-                                    String email = object.getString("email");
-                                    String gender = object.getString("gender");
 
                                   /*  The line below will get all the fields available in the JSON object*/
                                    /* mTxtView.setText("Object.names: " + object.names().toString());*/
@@ -165,7 +158,11 @@ public class LogInFragment extends Fragment {
 
                                     // Once success is done we just send the user information
                                     // over to create account
-                                    mListener.setUser(new User(id, name, email, gender, ""));
+                                    mListener.setUser(new User(object.getString("id"),
+                                            object.getString("name"),
+                                            object.getString("email"),
+                                            object.getString("gender"),
+                                            ""));
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
@@ -174,7 +171,7 @@ public class LogInFragment extends Fragment {
 
                 //Saving the stuff in case we need to use it in another fragment
                 Bundle parameters = new Bundle();
-                parameters.putString("fields", "id,name,email,gender,birthday");
+                parameters.putString("fields", "id, name, email, gender, birthday");
                 request.setParameters(parameters);
                 request.executeAsync();
             }

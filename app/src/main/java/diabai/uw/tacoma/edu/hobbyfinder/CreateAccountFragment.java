@@ -15,6 +15,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -35,6 +39,8 @@ public class CreateAccountFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
     public final static String USER_SELECTED = "user_selected";
 
+    private List<String> hobbyList = new ArrayList<String>();
+
     private CreateAccountFragmentInteractionListener mListener;
 
     private final static String USER_ADD_URL
@@ -44,6 +50,7 @@ public class CreateAccountFragment extends Fragment {
 
     private static final String HOBBIES_URL
             = "http://cssgate.insttech.washington.edu/~_450bteam1/hobbies_list.php?cmd=hobbies";
+
     private TextView mUserName;
     private TextView mUserEmail;
     private TextView mUserGender;
@@ -78,21 +85,23 @@ public class CreateAccountFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_create_account, container, false);
 
-        // This is the array used for the radius fro zip code drop down
-        Spinner dynamicSpinner = (Spinner) view.findViewById(R.id.dynamic_spinner);
-        String[] miles = new String[]{"5", "10", "15", "20", "50", "100"};
-
-        // Apply the array of miles into the drop down.
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity().getBaseContext(),
-                android.R.layout.simple_spinner_item, miles);
-        dynamicSpinner.setAdapter(adapter);
         mUserName = (TextView) view.findViewById(R.id.create_name);
         mUserEmail = (TextView) view.findViewById(R.id.create_email);
         mUserGender = (TextView) view.findViewById(R.id.create_gender);
         mUserHomeTown = (TextView) view.findViewById(R.id.create_hometown);
 
-        // Set listener on drop down
-        dynamicSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+        //Creating the hobby list
+        DownloadHobbiesTask task = new DownloadHobbiesTask();
+        task.execute(new String[]{HOBBIES_URL});
+
+        //Make the drop down
+        Spinner hobbiesSpinner = (Spinner) view.findViewById(R.id.hobbies_spinner);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity().getBaseContext(),
+                android.R.layout.simple_spinner_item, hobbyList);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        hobbiesSpinner.setAdapter(adapter);
+        hobbiesSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view,
                                        int position, long id) {
@@ -119,11 +128,6 @@ public class CreateAccountFragment extends Fragment {
         addHobbiesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               /* String url = generateUserHobbiesURL(v);// TODO
-                mListener.createAccount(url);*/ // TODO
-
-                /*DownloadCoursesTask task = new DownloadCoursesTask();
-                task.execute(new String[]{COURSE_URL});*/
             }
         });
         return view;
@@ -144,8 +148,11 @@ public class CreateAccountFragment extends Fragment {
         }
     }
 
-    /*
-        Updates the create account text views with the user passed in.
+
+    /**
+     * Updates the create acount text views with the users info that is
+     * passed in
+     * @param user user object with information
      */
     public void updateUserView(User user) {
         mUserId = user.getmId();
@@ -163,6 +170,11 @@ public class CreateAccountFragment extends Fragment {
         userHomeTownTextView.setText(user.getmHomeTown());
     }
 
+    /**
+     * Builds the url for adding a user.
+     * @param v the view
+     * @return returns the url
+     */
     private String buildUserAddURL(View v) {
 
         StringBuilder sb = new StringBuilder(USER_ADD_URL);
@@ -219,6 +231,7 @@ public class CreateAccountFragment extends Fragment {
         mListener = null;
     }
 
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -234,12 +247,23 @@ public class CreateAccountFragment extends Fragment {
         void createAccount(String url);
     }
 
+    private void convertJsonArray(JSONArray jArray) {
+        for (int i = 0; i < jArray.length(); i++) {
+            JSONObject obj = null;
+            try {
+                obj = jArray.getJSONObject(i);
+                hobbyList.add((String)obj.get("hobbyName"));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
-
-
-   /* private class DownloadCoursesTask extends AsyncTask<String, Void, String> {
-
-
+    /**
+     * Gets the hobbies from the database and calls a method within it
+     * to parse out the hobbies from json format to a list.
+     */
+   private class DownloadHobbiesTask extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... urls) {
             String response = "";
@@ -256,9 +280,8 @@ public class CreateAccountFragment extends Fragment {
                     while ((s = buffer.readLine()) != null) {
                         response += s;
                     }
-
                 } catch (Exception e) {
-                    response = "Unable to download the list of courses, Reason: "
+                    response = "Unable to download the list of hobbies, Reason: "
                             + e.getMessage();
                 }
                 finally {
@@ -267,7 +290,6 @@ public class CreateAccountFragment extends Fragment {
                 }
             }
             return response;
-
         }
 
 
@@ -280,23 +302,14 @@ public class CreateAccountFragment extends Fragment {
                 return;
             }
 
-            List<Course> courseList = new ArrayList<Course>();
-            result = Course.parseCourseJSON(result, courseList);
-            // Something wrong with the JSON returned.
             if (result != null) {
-                Toast.makeText(getActivity().getApplicationContext(), result, Toast.LENGTH_LONG)
-                        .show();
-                return;
+                try {
+                    JSONArray jArray = new JSONArray(result);
+                    convertJsonArray(jArray); // grabs data and adds to list
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
-
-            // Everything is good, show the list of courses.
-            if (!courseList.isEmpty()) {
-                mRecyclerView.setAdapter(new MyCourseRecyclerViewAdapter(courseList, mListener));
-            }
-
         }
-
-
-
-    }*/
+    }
 }

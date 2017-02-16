@@ -84,9 +84,9 @@ public class CreateAccountFragment extends Fragment {
         mUserHomeTown = (TextView) view.findViewById(R.id.create_hometown);
 
 
-        //Creating the hobby list
-        DownloadHobbiesTask task = new DownloadHobbiesTask();
-        task.execute(new String[]{HOBBIES_URL});
+//        //Creating the hobby list
+//        DownloadHobbiesTask task = new DownloadHobbiesTask();
+//        task.execute(new String[]{HOBBIES_URL});
 
 
       /*  //Make the drop down
@@ -266,53 +266,53 @@ public class CreateAccountFragment extends Fragment {
      * Gets the hobbies from the database and calls a method within it
      * to parse out the hobbies from json format to a list.
      */
-   private class DownloadHobbiesTask extends AsyncTask<String, Void, String> {
-        @Override
-        protected String doInBackground(String... urls) {
-            String response = "";
-            HttpURLConnection urlConnection = null;
-            for (String url : urls) {
-                try {
-                    URL urlObject = new URL(url);
-                    urlConnection = (HttpURLConnection) urlObject.openConnection();
-
-                    InputStream content = urlConnection.getInputStream();
-
-                    BufferedReader buffer = new BufferedReader(new InputStreamReader(content));
-                    String s = "";
-                    while ((s = buffer.readLine()) != null) {
-                        response += s;
-                    }
-                } catch (Exception e) {
-                    response = "Unable to download the list of hobbies, Reason: "
-                            + e.getMessage();
-                }
-                finally {
-                    if (urlConnection != null)
-                        urlConnection.disconnect();
-                }
-            }
-            return response;
-        }
-
-
-        @Override
-        protected void onPostExecute(String result) {
-            // Something wrong with the network or the URL.
-            if (result.startsWith("Unable to")) {
-                Toast.makeText(getActivity().getApplicationContext(), result, Toast.LENGTH_LONG)
-                        .show();
-                return;
-            }
-
-            if (result != null) {
-                try {
-                    JSONArray jArray = new JSONArray(result);
-                    convertJsonArray(jArray); // grabs data and adds to list
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
+//   private class DownloadHobbiesTask extends AsyncTask<String, Void, String> {
+//        @Override
+//        protected String doInBackground(String... urls) {
+//            String response = "";
+//            HttpURLConnection urlConnection = null;
+//            for (String url : urls) {
+//                try {
+//                    URL urlObject = new URL(url);
+//                    urlConnection = (HttpURLConnection) urlObject.openConnection();
+//
+//                    InputStream content = urlConnection.getInputStream();
+//
+//                    BufferedReader buffer = new BufferedReader(new InputStreamReader(content));
+//                    String s = "";
+//                    while ((s = buffer.readLine()) != null) {
+//                        response += s;
+//                    }
+//                } catch (Exception e) {
+//                    response = "Unable to download the list of hobbies, Reason: "
+//                            + e.getMessage();
+//                }
+//                finally {
+//                    if (urlConnection != null)
+//                        urlConnection.disconnect();
+//                }
+//            }
+//            return response;
+//        }
+//
+//
+//        @Override
+//        protected void onPostExecute(String result) {
+//            // Something wrong with the network or the URL.
+//            if (result.startsWith("Unable to")) {
+//                Toast.makeText(getActivity().getApplicationContext(), result, Toast.LENGTH_LONG)
+//                        .show();
+//                return;
+//            }
+//
+//            if (result != null) {
+//                try {
+//                    JSONArray jArray = new JSONArray(result);
+//                    convertJsonArray(jArray); // grabs data and adds to list
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }
+//    }
 }

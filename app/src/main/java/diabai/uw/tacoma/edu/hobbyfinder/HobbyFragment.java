@@ -39,9 +39,9 @@ public class HobbyFragment extends DialogFragment {
     /**
      * A list of hobbies
      */
-    private List<String> hobbyList = new ArrayList<String>();
+    private List<CharSequence> hobbyList = new ArrayList<CharSequence>();
 
-    String[] AlertDialogItems = new String[11];
+    String[] items = new String[11];
     /**
      * The URL to query Hobbies from the Web server
      */
@@ -96,12 +96,14 @@ public class HobbyFragment extends DialogFragment {
         DownloadHobbiesTask task = new DownloadHobbiesTask();
         task.execute(new String[]{HOBBIES_URL});
 
-
-        hobbyList = Arrays.asList(AlertDialogItems);
+        CharSequence [] mArray = (CharSequence[])hobbyList.toArray();
         builder.setTitle(R.string.pick_hobbies)
                 // Specify the list array, the items to be selected by default (null for none),
                 // and the listener through which to receive callbacks when items are selected
-                .setMultiChoiceItems(AlertDialogItems, null,
+
+                // ******First parameter should be an array but currently it only works if you use xml
+
+                .setMultiChoiceItems(mArray, null,
                         new DialogInterface.OnMultiChoiceClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which,
@@ -154,8 +156,8 @@ public class HobbyFragment extends DialogFragment {
             JSONObject obj = null;
             try {
                 obj = jArray.getJSONObject(i);
-           // hobbyList.add((String)obj.get("hobbyName"));
-                AlertDialogItems[i] = (String)obj.get("hobbyName");
+         hobbyList.add((String)obj.get("hobbyName"));
+               // items[i] = (String)obj.get("hobbyName");
             } catch (JSONException e) {
                 e.printStackTrace();
             }

@@ -88,7 +88,8 @@ public class CreateAccountFragment extends Fragment {
         DownloadHobbiesTask task = new DownloadHobbiesTask();
         task.execute(new String[]{HOBBIES_URL});
 
-        //Make the drop down
+
+      /*  //Make the drop down
         Spinner hobbiesSpinner = (Spinner) view.findViewById(R.id.hobbies_spinner);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity().getBaseContext(),
                 android.R.layout.simple_spinner_item, hobbyList);
@@ -104,7 +105,7 @@ public class CreateAccountFragment extends Fragment {
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
             }
-        });
+        });*/
 
         // Call the build URl
         // when using fragments onClick in frags use this
@@ -121,6 +122,8 @@ public class CreateAccountFragment extends Fragment {
         addHobbiesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //Launches the hobby dialog so user can select his/her hobbies
+                mListener.launchHobbyDialog();
             }
         });
         return view;
@@ -238,6 +241,7 @@ public class CreateAccountFragment extends Fragment {
     public interface CreateAccountFragmentInteractionListener {
         // Once a user hits the submit account button.
         void createAccount(String url);
+        void launchHobbyDialog();
     }
 
     /**

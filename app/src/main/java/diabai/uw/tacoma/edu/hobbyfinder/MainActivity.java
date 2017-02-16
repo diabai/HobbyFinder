@@ -41,19 +41,6 @@ public class MainActivity extends AppCompatActivity implements
         }
     }
 
-    public void launch(View v) {
-
-        Log.i("HEERE0", "===>");
-        DialogFragment fragment = null;
-        if (v.getId() == R.id.add_hobbies_frag_button) {
-            fragment = new HobbyFragment();
-        }
-
-        if (fragment != null)
-            fragment.show(getSupportFragmentManager(), "launch");
-
-    }
-
 
 
     @Override
@@ -67,9 +54,9 @@ public class MainActivity extends AppCompatActivity implements
 
     /**
      * When passing information from facebook to
-     * create account screen.
+     * the create account screen.
      *
-     * @param user
+     * @param user the facebook user creating an account
      */
     @Override
     public void setUser(User user) {
@@ -82,6 +69,19 @@ public class MainActivity extends AppCompatActivity implements
                 .replace(R.id.fragment_container, createAccountFragment)
                 .addToBackStack(null)
                 .commit();
+    }
+
+
+    /**
+     * This methods gets called when the users clicks on Add Hobbies button inside the CreateAccountFragment
+     */
+    @Override
+    public void launchHobbyDialog() {
+        DialogFragment fragment = null;
+        fragment = new HobbyFragment();
+        if (fragment != null)
+            fragment.show(getSupportFragmentManager(), "launch");
+
     }
 
     /**

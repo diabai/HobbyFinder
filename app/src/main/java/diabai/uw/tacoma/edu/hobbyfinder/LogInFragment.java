@@ -162,7 +162,7 @@ public class LogInFragment extends Fragment {
                                             object.getString("name"),
                                             object.getString("email"),
                                             object.getString("gender"),
-                                            ""));
+                                            "hometown"));
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
@@ -244,5 +244,8 @@ public class LogInFragment extends Fragment {
      */
     public interface OnListFragmentInteractionListener {
         void setUser(User user);
+
     }
+
+
 }

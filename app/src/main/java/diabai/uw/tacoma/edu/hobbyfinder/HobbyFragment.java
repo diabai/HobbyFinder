@@ -92,15 +92,12 @@ public class HobbyFragment extends DialogFragment {
         final List mSelectedItems = new ArrayList();  // Where we track the selected items
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity()); // ***********Have to be launched from an activty to work
         // Set the dialog title
-        //Creating the hobby list by calling the async task
-        try {
-            task.execute(new String[]{HOBBIES_URL}).get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-        CharSequence[] mArray = hobbyList.toArray(new CharSequence[hobbyList.size()]);
+
+        //Creating the hobby list
+        DownloadHobbiesTask task = new DownloadHobbiesTask();
+        task.execute(new String[]{HOBBIES_URL});
+
+        CharSequence [] mArray = (CharSequence[])hobbyList.toArray();
         builder.setTitle(R.string.pick_hobbies)
                 // Specify the list array, the items to be selected by default (null for none),
                 // and the listener through which to receive callbacks when items are selected

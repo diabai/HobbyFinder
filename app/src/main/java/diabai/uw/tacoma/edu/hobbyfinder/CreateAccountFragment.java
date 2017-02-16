@@ -38,19 +38,12 @@ public class CreateAccountFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     public final static String USER_SELECTED = "user_selected";
-
     private List<String> hobbyList = new ArrayList<String>();
-
     private CreateAccountFragmentInteractionListener mListener;
-
     private final static String USER_ADD_URL
             = "http://cssgate.insttech.washington.edu/~_450bteam1/addUser.php?";
-
-
-
     private static final String HOBBIES_URL
             = "http://cssgate.insttech.washington.edu/~_450bteam1/hobbies_list.php?cmd=hobbies";
-
     private TextView mUserName;
     private TextView mUserEmail;
     private TextView mUserGender;
@@ -247,6 +240,12 @@ public class CreateAccountFragment extends Fragment {
         void createAccount(String url);
     }
 
+    /**
+     * Takes in the json array of hobbies and
+     * converts each hobby into a string that
+     * can be added to hobbies list.
+     * @param jArray the JSONArray of hobbies
+     */
     private void convertJsonArray(JSONArray jArray) {
         for (int i = 0; i < jArray.length(); i++) {
             JSONObject obj = null;

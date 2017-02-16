@@ -83,9 +83,10 @@ public class LogInFragment extends Fragment {
          */
 
         //If user is logged in display the home page button and add a listener to it
-        if (isLoggedIn) {
+        if (true) { //change back to isUserLoggedIn once it is implemented to check against db
             mHomePageButton = (Button) v.findViewById(R.id.home_page_button);
-        /*    mHomePageButton.setVisibility(isLoggedIn ? View.VISIBLE : View.INVISIBLE);*/
+//            mHomePageButton.setVisibility(isLoggedIn ? View.VISIBLE : View.INVISIBLE);
+            mHomePageButton.setVisibility(View.VISIBLE);
             mHomePageButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

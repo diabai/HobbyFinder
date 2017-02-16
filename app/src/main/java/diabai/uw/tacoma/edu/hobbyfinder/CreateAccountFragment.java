@@ -113,8 +113,13 @@ public class CreateAccountFragment extends Fragment {
         addAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = buildUserAddURL(v);
-                mListener.createAccount(url);
+                if(checkIfValid()) {
+                    String url = buildUserAddURL(v);
+                    mListener.createAccount(url);
+                }
+                else {
+                    System.out.print("not valid");
+                }
             }
         });
 
@@ -203,6 +208,17 @@ public class CreateAccountFragment extends Fragment {
                     .show();
         }
         return sb.toString();
+    }
+
+    /**
+     * Checks if all textviews are empty or not
+     * @return
+     */
+    boolean checkIfValid() {
+        return !(mUserId.isEmpty() || mUserName.getText().toString().isEmpty() ||
+                mUserEmail.getText().toString().isEmpty() ||
+                mUserGender.getText().toString().isEmpty() ||
+                mUserHomeTown.getText().toString().isEmpty());
     }
 
     @Override

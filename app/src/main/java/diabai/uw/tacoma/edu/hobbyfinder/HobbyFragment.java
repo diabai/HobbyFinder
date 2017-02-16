@@ -27,6 +27,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 
 public class HobbyFragment extends DialogFragment {
@@ -34,14 +35,14 @@ public class HobbyFragment extends DialogFragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    DownloadHobbiesTask task = new DownloadHobbiesTask();
 
 
     /**
      * A list of hobbies
      */
-    private List<CharSequence> hobbyList = new ArrayList<CharSequence>();
+    private List<String> hobbyList = new ArrayList<String>();
 
-    String[] items = new String[11];
     /**
      * The URL to query Hobbies from the Web server
      */
@@ -91,18 +92,20 @@ public class HobbyFragment extends DialogFragment {
         final List mSelectedItems = new ArrayList();  // Where we track the selected items
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity()); // ***********Have to be launched from an activty to work
         // Set the dialog title
-
-        //Creating the hobby list
-        DownloadHobbiesTask task = new DownloadHobbiesTask();
-        task.execute(new String[]{HOBBIES_URL});
-
-        CharSequence [] mArray = (CharSequence[])hobbyList.toArray();
+        //Creating the hobby list by calling the async task
+        try {
+            task.execute(new String[]{HOBBIES_URL}).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        CharSequence[] mArray = hobbyList.toArray(new CharSequence[hobbyList.size()]);
         builder.setTitle(R.string.pick_hobbies)
                 // Specify the list array, the items to be selected by default (null for none),
                 // and the listener through which to receive callbacks when items are selected
 
-                // ******First parameter should be an array but currently it only works if you use xml
-
+                //First parameter should be an array but currently it only works if you use xml
                 .setMultiChoiceItems(mArray, null,
                         new DialogInterface.OnMultiChoiceClickListener() {
                             @Override
@@ -126,12 +129,12 @@ public class HobbyFragment extends DialogFragment {
                         Resources res = getActivity().getResources();
                         String[] toppings = res.getStringArray(R.array.hobbies_array);
                         StringBuilder builder = new StringBuilder();
-                        for (int i=0; i<mSelectedItems.size(); i++) {
+                        for (int i = 0; i < mSelectedItems.size(); i++) {
                             builder.append(toppings[(int) mSelectedItems.get(i)]);
                             builder.append(" ");
                         }
-
-                        Toast.makeText(getActivity(), builder.toString() , Toast.LENGTH_LONG)  // ***********Have to be launched from an activty to work
+                        // ***********Have to be launched from an activty to work
+                        Toast.makeText(getActivity(), builder.toString(), Toast.LENGTH_LONG)
                                 .show();
                     }
                 })
@@ -141,14 +144,13 @@ public class HobbyFragment extends DialogFragment {
 
                     }
                 });
-
         return builder.create();
     }
 
 
     /**
-     *
      * Converts the jsonArray to something useful
+     *
      * @param jArray
      */
     private void convertJsonArray(JSONArray jArray) {
@@ -156,8 +158,8 @@ public class HobbyFragment extends DialogFragment {
             JSONObject obj = null;
             try {
                 obj = jArray.getJSONObject(i);
-         hobbyList.add((String)obj.get("hobbyName"));
-               // items[i] = (String)obj.get("hobbyName");
+                hobbyList.add((String) obj.get("hobbyName"));
+                // items[i] = (String)obj.get("hobbyName");
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -189,12 +191,19 @@ public class HobbyFragment extends DialogFragment {
                 } catch (Exception e) {
                     response = "Unable to download the list of hobbies, Reason: "
                             + e.getMessage();
-                }
-                finally {
+                } finally {
                     if (urlConnection != null)
                         urlConnection.disconnect();
                 }
             }
+            // Adding all the hobbies being retrieved
+            JSONArray jArray = null;
+            try {
+                jArray = new JSONArray(response);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            convertJsonArray(jArray); // grabs data and adds to list
             return response;
         }
 
@@ -205,19 +214,7 @@ public class HobbyFragment extends DialogFragment {
             if (result.startsWith("Unable to")) {
                 Toast.makeText(getActivity().getApplicationContext(), result, Toast.LENGTH_LONG)
                         .show();
-                return;
-            }
-
-            if (result != null) {
-                try {
-                    JSONArray jArray = new JSONArray(result);
-                    convertJsonArray(jArray); // grabs data and adds to list
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
             }
         }
     }
-
-
 }

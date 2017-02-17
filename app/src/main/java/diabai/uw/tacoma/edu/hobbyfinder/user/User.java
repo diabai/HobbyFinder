@@ -1,20 +1,48 @@
 package diabai.uw.tacoma.edu.hobbyfinder.user;
 import java.io.Serializable;
 
+
+/**
+ * User class.
+ *
+ * This class contains the functionalities to create and manipulate a User object
+ * @Author: Ibrahim Diabate, Edgard Solorzano
+ * @version: 2.0
+ *
+ */
 public class User implements Serializable {
 
-    public static final String ID = "id";
-    public static final String NAME = "name";
-    public static final String EMAIL = "email";
-    public static final String GENDER = "gender";
-    public static final String HOMETOWN = "homeTown";
 
+    /*
+    The user's id
+     */
     private String mId;
+    /*
+   The user's name
+    */
     private String mName;
+    /*
+   The user's email
+    */
     private String mEmail;
+    /*
+   The user's gender
+    */
     private String mGender;
+
+    /*
+   The user's hometown
+    */
     private String mHomeTown;
 
+    /**
+     * Constructor for the user object
+     * @param mId the user's id
+     * @param mName the user's name
+     * @param mEmail the user's email
+     * @param mGender the user's email
+     * @param mHomeTown the user's hometown
+     */
     public User(String mId, String mName, String mEmail, String mGender, String mHomeTown) {
         this.mId = mId;
         this.mName = mName;
@@ -23,43 +51,46 @@ public class User implements Serializable {
         this.mHomeTown = mHomeTown;
     }
 
+    // Getters and setters
+    /*
+    Gets the user ID
+    @return the user id
+     */
     public String getmId() {
         return mId;
     }
 
-    public void setmId(String mId) {
-        this.mId = mId;
-    }
 
+    /*
+    Gets the user name
+    @return the user name
+     */
     public String getmName() {
         return mName;
     }
 
-    public void setmName(String mName) {
-        this.mName = mName;
-    }
 
+    /*
+    Gets the user's email
+    @return the user email
+     */
     public String getmEmail() {
         return mEmail;
     }
 
-    public void setmEmail(String mEmail) {
-        this.mEmail = mEmail;
-    }
-
+    /*
+    Gets the user gender
+    @return the user's gender
+     */
     public String getmGender() {
         return mGender;
     }
 
-    public void setmGender(String mGender) {
-        this.mGender = mGender;
-    }
-
+    /*
+    Gets the user's hometown
+    @return the user's hometown
+     */
     public String getmHomeTown() {
         return mHomeTown;
-    }
-
-    public void setmHomeTown(String mHomeTown) {
-        this.mHomeTown = mHomeTown;
     }
 }

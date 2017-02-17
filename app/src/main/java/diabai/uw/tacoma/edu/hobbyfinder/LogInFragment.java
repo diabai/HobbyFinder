@@ -75,18 +75,10 @@ public class LogInFragment extends Fragment {
         //Inflating the layout when this fragment is launched
         View v = inflater.inflate(R.layout.fragment_log_in, container, false);
 
-        /*
-           However we need to check if user is logged in and has account
-            then we show a go to homepage button
-             If a user has not created an account then we send over to create
-             account with fb credentials.
-         */
-
         //If user is logged in display the home page button and add a listener to it
         if (true) { //change back to isUserLoggedIn once it is implemented to check against db
             mHomePageButton = (Button) v.findViewById(R.id.home_page_button);
-//            mHomePageButton.setVisibility(isLoggedIn ? View.VISIBLE : View.INVISIBLE);
-            mHomePageButton.setVisibility(View.VISIBLE);
+            mHomePageButton.setVisibility(View.INVISIBLE); //invisible until homepage is created
             mHomePageButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -98,13 +90,16 @@ public class LogInFragment extends Fragment {
                             .commit();
                 }
             });
-
         }
         return v;
     }
 
 
-    /*AFTER THE FRAGMENT IS INFLATED THIS METHOD IS CALLED*/
+    /**
+     * Contains all the facebook button interactions and responses.
+     * @param v the view
+     * @param savedInstanceState the saved instance
+     */
     @Override
     public void onViewCreated(View v, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(v, savedInstanceState);
@@ -120,12 +115,14 @@ public class LogInFragment extends Fragment {
         // Login button Callback to handle Login related events
         mLoginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
 
-            /*  onSuccess() GETS CALLED ONLY FIRST TIME USER LOGS IN*/
+            /**
+             * On success gets called whe a user logs in for the
+             * first time.
+             * @param loginResult the result from the login
+             */
             @Override
             public void onSuccess(LoginResult loginResult) {
-
                 AccessToken accessToken = loginResult.getAccessToken();
-
 
                 // GraphRequest to get the data needed from the facebook Graph
                 GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(),
@@ -196,7 +193,6 @@ public class LogInFragment extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
-     /*   mProfileTracker.stopTracking();*/
     }
 
 
@@ -205,6 +201,11 @@ public class LogInFragment extends Fragment {
         mCallbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
+    /**
+     * Method for when the fragment is attached to its parent activity
+     *
+     * @param context the context
+     */
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -216,6 +217,9 @@ public class LogInFragment extends Fragment {
         }
     }
 
+    /**
+     * Method for when the fragment is detached from its parent activity
+     */
     @Override
     public void onDetach() {
         super.onDetach();
@@ -247,6 +251,4 @@ public class LogInFragment extends Fragment {
         void setUser(User user);
 
     }
-
-
 }

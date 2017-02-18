@@ -11,10 +11,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,11 +35,7 @@ public class CreateAccountFragment extends Fragment {
     public final static String USER_SELECTED = "user_selected";
 
     /**
-     * A list containing hobbies once web service request is sent.
-     */
-    private List<String> mHobbyList = new ArrayList<String>();
-    /*
-        A listener for this fragment
+     * A listener for this fragment
      */
     private CreateAccountFragmentInteractionListener mListener;
 
@@ -54,34 +46,28 @@ public class CreateAccountFragment extends Fragment {
             = "http://cssgate.insttech.washington.edu/~_450bteam1/addUser.php?";
 
     /**
-     * URL to get list of hobbies from the Web server
-     */
-    private static final String HOBBIES_URL
-            = "http://cssgate.insttech.washington.edu/~_450bteam1/hobbies_list.php?cmd=hobbies";
-
-    /*
-    The user's name
+     * The user's name
      */
     private TextView mUserName;
-    /*
-   The user's email
-    */
+    /**
+     * The user's email
+     */
     private TextView mUserEmail;
-    /*
-   The user's gender
-    */
+    /**
+     * The user's gender
+     */
     private TextView mUserGender;
-    /*
-   The user's hometown
-    */
+    /**
+     * The user's hometown
+     */
     private TextView mUserHomeTown;
-    /*
-   The user's ID
-    */
+    /**
+     * The user's ID
+     */
     private String mUserId;
 
-    /*
-    Default contructor
+    /**
+     * Default contructor
      */
     public CreateAccountFragment() {
         // Required empty public constructor

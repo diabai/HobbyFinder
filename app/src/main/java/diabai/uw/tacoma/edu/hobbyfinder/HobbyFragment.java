@@ -30,7 +30,6 @@ import java.util.concurrent.ExecutionException;
  * @version: 2.0
  */
 public class HobbyFragment extends DialogFragment {
-    //
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -40,8 +39,8 @@ public class HobbyFragment extends DialogFragment {
      */
     private List<String> mHobbyList = new ArrayList<String>();
 
-    /*
-    CharSequence array for the hobbies
+    /**
+     * CharSequence array for the hobbies
      */
     private CharSequence[] mArray;
 
@@ -53,8 +52,8 @@ public class HobbyFragment extends DialogFragment {
 
 
 
-    /*
-    Fields automatically generated once fragment is created
+    /**
+     * Fields automatically generated once fragment is created
      */
     private String mParam1;
     private String mParam2;
@@ -157,7 +156,7 @@ public class HobbyFragment extends DialogFragment {
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                            //Left empty on purpose/ Does not affect this phase
+                            //Left empty on purpose. Does not affect this phase
                     }
                 });
         return builder.create();
@@ -218,7 +217,10 @@ public class HobbyFragment extends DialogFragment {
                         urlConnection.disconnect();
                 }
             }
-            // Adding all the hobbies being retrieved
+            /* Adding all the hobbies being retrieved
+                has to be called in this moment to not create
+                issues with async calls timing.
+             */
             JSONArray jArray = null;
             try {
                 jArray = new JSONArray(response);

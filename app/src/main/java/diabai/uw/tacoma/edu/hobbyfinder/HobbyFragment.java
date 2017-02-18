@@ -144,10 +144,16 @@ public class HobbyFragment extends DialogFragment {
                         // User clicked OK, so save the mSelectedItems results somewhere
                         // or return them to the component that opened the dialog
                         StringBuilder builder = new StringBuilder();
+                        String userHobbies = "";
                         for (int i = 0; i < mSelectedItems.size(); i++) {
                             builder.append(mArray[(int) mSelectedItems.get(i)]);
+
+                            // THIS IS THE STRING CONTAINING THE HOBBIES SELECTED... DONT DELETE THE STATEMENT ABOVE WE MIGHT NEED IT LATER
+                            userHobbies+= mSelectedItems.get(i) + " ";
                             builder.append(" ");
+
                         }
+
 
                         Toast.makeText(getActivity(), builder.toString(), Toast.LENGTH_LONG)
                                 .show();

@@ -12,8 +12,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.List;
 
 import diabai.uw.tacoma.edu.hobbyfinder.user.User;
 
@@ -22,8 +20,8 @@ import diabai.uw.tacoma.edu.hobbyfinder.user.User;
  * <p>
  * This is class automatically launches when a user launches the app.
  *
- * @Author: Ibrahim Diabate, Edgard Solorzano
- * @version: 2.0
+ * @author Ibrahim Diabate, Edgard Solorzano
+ * @version 2.0
  */
 public class CreateAccountFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";

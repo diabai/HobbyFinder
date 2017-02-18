@@ -8,8 +8,8 @@ import java.io.Serializable;
  * <p>
  * This class contains the functionality to create and manipulate a User object
  *
- * @Author: Ibrahim Diabate, Edgard Solorzano
- * @version: 2.0
+ * @author Ibrahim Diabate, Edgard Solorzano
+ * @version 2.0
  */
 public class User implements Serializable {
     //The user's id

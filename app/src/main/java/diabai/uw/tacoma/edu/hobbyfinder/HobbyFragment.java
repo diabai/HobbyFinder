@@ -26,8 +26,8 @@ import java.util.concurrent.ExecutionException;
  * Hobby Fragment class.
  * This class construct the DialogFragment that is create once a user chooses hobbies to add to his/her profile
  *
- * @Author: Ibrahim Diabate, Edgard Solorzano
- * @version: 2.0
+ * @author Ibrahim Diabate, Edgard Solorzano
+ * @version 2.0
  */
 public class HobbyFragment extends DialogFragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER

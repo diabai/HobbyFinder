@@ -17,6 +17,9 @@ import diabai.uw.tacoma.edu.hobbyfinder.user.User;
 
 /**
  * Main activity class for the application.
+ *
+ * @Author: Ibrahim Diabate
+ * @version: 2.0
  */
 public class MainActivity extends AppCompatActivity implements
         LogInFragment.OnListFragmentInteractionListener,

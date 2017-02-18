@@ -75,10 +75,18 @@ public class LogInFragment extends Fragment {
         //Inflating the layout when this fragment is launched
         View v = inflater.inflate(R.layout.fragment_log_in, container, false);
 
-        //If user is logged in display the home page button and add a listener to it
+        /*
+           However we need to check if user is logged in and has account
+            then we show a go to homepage button
+             If a user has not created an account then we send over to create
+             account with fb credentials.
+         */
+
+       /* //If user is logged in display the home page button and add a listener to it
         if (true) { //change back to isUserLoggedIn once it is implemented to check against db
             mHomePageButton = (Button) v.findViewById(R.id.home_page_button);
-            mHomePageButton.setVisibility(View.INVISIBLE); //invisible until homepage is created
+//            mHomePageButton.setVisibility(isLoggedIn ? View.VISIBLE : View.INVISIBLE);
+            mHomePageButton.setVisibility(View.VISIBLE);
             mHomePageButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -90,7 +98,8 @@ public class LogInFragment extends Fragment {
                             .commit();
                 }
             });
-        }
+
+        }*/
         return v;
     }
 

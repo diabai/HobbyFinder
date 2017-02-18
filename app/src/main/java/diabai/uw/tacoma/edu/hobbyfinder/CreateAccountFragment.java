@@ -187,9 +187,6 @@ public class CreateAccountFragment extends Fragment {
 
         TextView userGenderTextView = (TextView) getActivity().findViewById(R.id.create_gender);
         userGenderTextView.setText(user.getmGender());
-
-        TextView userHomeTownTextView = (TextView) getActivity().findViewById(R.id.create_hometown);
-        userHomeTownTextView.setText(user.getmHomeTown());
     }
 
     /**

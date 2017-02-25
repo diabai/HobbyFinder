@@ -2,9 +2,14 @@ package diabai.uw.tacoma.edu.hobbyfinder;
 
 import android.os.AsyncTask;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
+
+import com.facebook.login.LoginFragment;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.BufferedReader;
@@ -63,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements
 
     /**
      * When passing information from facebook to
-     * the create account screen.
+     * the create account screen. FROM LISTENER INTERFACE THAT IS INSIDE LogInFragment
      *
      * @param user the facebook user creating an account
      */

@@ -81,11 +81,8 @@ public class LogInFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         mCallbackManager = CallbackManager.Factory.create();
-        isLoggedIn = isLoggedIn();
-
-        if (isLoggedIn) {
+        if (isLoggedIn()) {
             Intent intent = new Intent(getActivity(), Dashboard.class);
             startActivity(intent);
         }
@@ -277,9 +274,7 @@ public class LogInFragment extends Fragment {
      * @return true if user is logged in
      */
     public boolean isLoggedIn() {
-
         AccessToken accessToken = AccessToken.getCurrentAccessToken();
-
         return accessToken != null;
     }
 

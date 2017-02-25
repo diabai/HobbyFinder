@@ -10,7 +10,7 @@
     <string name="gender_hint">Gender</string>
     <string name="hometown_hint">Home town</string>
     <string name="zipcode_hint">Zip code</string>
-  <!--  <string name="home_page_button">Welcome back! Go to homepage</string>-->
+    <!--  <string name="home_page_button">Welcome back! Go to homepage</string>-->
     <string name="add_account_text">Add Account</string>
     <string name="add_hobbies">Add hobbies</string>
 

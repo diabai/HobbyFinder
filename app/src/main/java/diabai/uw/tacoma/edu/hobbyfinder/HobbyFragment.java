@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.util.Log;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -50,9 +51,15 @@ public class HobbyFragment extends DialogFragment {
     private static final String HOBBIES_URL
             = "http://cssgate.insttech.washington.edu/~_450bteam1/hobbies_list.php?cmd=hobbies";
 
-
-
     /**
+     * URL to add a user hobbies
+     */
+    private final static String USER_ADD_HOBBIES
+            = "http://cssgate.insttech.washington.edu/~_450bteam1/user_hobbies.php?";
+
+
+    UserHobbiesListener hobbiesListener;
+    /*
      * Fields automatically generated once fragment is created
      */
     private String mParam1;
@@ -94,7 +101,16 @@ public class HobbyFragment extends DialogFragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+
+
+        try {
+            hobbiesListener = (UserHobbiesListener) getTargetFragment();
+        } catch (Exception e) {
+            throw new ClassCastException("Calling Fragment must implement UserHobbiesListener");
+        }
     }
+
 
 
     /**
@@ -147,16 +163,25 @@ public class HobbyFragment extends DialogFragment {
                         String userHobbies = "";
                         for (int i = 0; i < mSelectedItems.size(); i++) {
                             builder.append(mArray[(int) mSelectedItems.get(i)]);
-
-                            // THIS IS THE STRING CONTAINING THE HOBBIES SELECTED... DONT DELETE THE STATEMENT ABOVE WE MIGHT NEED IT LATER
-                            userHobbies+= mSelectedItems.get(i) + " ";
                             builder.append(" ");
-
                         }
+
 
 
                         Toast.makeText(getActivity(), builder.toString(), Toast.LENGTH_LONG)
                                 .show();
+
+                        //Passing the data back to the create account fragment
+                      /*  Bundle args = new Bundle();
+                        args.putString("selectedHobbies", builder.toString());
+                        CreateAccountFragment newFragment = new CreateAccountFragment ();
+                        newFragment.setArguments(args);*/
+
+                        hobbiesListener.passHobbies(builder.toString());
+
+
+                        // THIS IS THE STRING CONTAINING THE HOBBIES SELECTED... DONT DELETE
+                     //   hobbiesListener.passHobbies(builder.toString());
                     }
                 })
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
@@ -168,6 +193,10 @@ public class HobbyFragment extends DialogFragment {
         return builder.create();
     }
 
+    public interface UserHobbiesListener {
+
+        void passHobbies(String theUserHobbies);
+    }
 
     /**
      * Converts the jsonArray to something useful

@@ -25,7 +25,7 @@ import diabai.uw.tacoma.edu.hobbyfinder.user.User;
  * @Author: Ibrahim Diabate, Edgard Solorzano
  * @version: 2.0
  */
-public class CreateAccountFragment extends Fragment {
+public class CreateAccountFragment extends Fragment  {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -65,6 +65,12 @@ public class CreateAccountFragment extends Fragment {
      * The user's ID
      */
     private String mUserId;
+
+
+    /**
+     * User hobbies
+     */
+    String userHobbies;
 
     /**
      * Default contructor
@@ -192,6 +198,8 @@ public class CreateAccountFragment extends Fragment {
         userHomeTownTextView.setText(user.getmHomeTown());
     }
 
+
+
     /**
      * Builds the url for adding a user.
      *
@@ -223,6 +231,12 @@ public class CreateAccountFragment extends Fragment {
             String userHometown = mUserHomeTown.getText().toString();
             sb.append("&hometown=");
             sb.append(URLEncoder.encode(userHometown, "UTF-8"));
+
+
+
+           /* HOBBIES ARE ADDED HERE*/
+         /*   sb.append("&hobbies=");
+            sb.append(URLEncoder.encode(s, "UTF-8"));*/
 
             Log.i("UserAddFragment", sb.toString());
         } catch (Exception e) {
@@ -277,6 +291,7 @@ public class CreateAccountFragment extends Fragment {
         super.onDetach();
         mListener = null;
     }
+
 
 
     /**

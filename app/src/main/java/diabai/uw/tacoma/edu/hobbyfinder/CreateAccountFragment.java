@@ -130,7 +130,6 @@ public class CreateAccountFragment extends Fragment  {
         mUserGender = (TextView) view.findViewById(R.id.create_gender);
         mUserHomeTown = (TextView) view.findViewById(R.id.create_hometown);
 
-
         Button addAccountButton = (Button) view.findViewById(R.id.add_account_frag_button);
         addAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override

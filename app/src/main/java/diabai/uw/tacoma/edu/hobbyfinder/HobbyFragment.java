@@ -177,11 +177,10 @@ public class HobbyFragment extends DialogFragment {
                         CreateAccountFragment newFragment = new CreateAccountFragment ();
                         newFragment.setArguments(args);*/
 
-                        hobbiesListener.passHobbies(builder.toString());
+                                //Currently commented because it crashed. We must move it to
+//                        hobbiesListener.passHobbies(builder.toString());
 
 
-                        // THIS IS THE STRING CONTAINING THE HOBBIES SELECTED... DONT DELETE
-                     //   hobbiesListener.passHobbies(builder.toString());
                     }
                 })
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {

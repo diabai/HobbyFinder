@@ -26,11 +26,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Search"
+        android:text="Find users by hobby"
         android:id="@+id/btn_search"
         android:layout_marginBottom="14dp"
         android:layout_above="@+id/btn_homepage"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:onClick="launch"/>
 
 </RelativeLayout>

@@ -13,18 +13,13 @@
     <!--  <string name="home_page_button">Welcome back! Go to homepage</string>-->
     <string name="add_account_text">Add Account</string>
     <string name="add_hobbies">Add hobbies</string>
+    <string name="submit_edit">Submit edit</string>
+    <string name="edit_profile">Edit profile</string>
+    <string name="search_by_hobby">Search users by hobby</string>
+    <string name="action_logout">Logout</string>
 
-    <string-array name="radius_array">
-        <item>5</item>
-        <item>10</item>
-        <item>15</item>
-        <item>30</item>
-        <item>40</item>
-        <item>50</item>
-        <item>100</item>
-        <item>200</item>
-    </string-array>
-
+    <string name="LOGIN_PREFS">diabai.uw.tacoma.edu.hobbyfinder.PREFS</string>
+    <string name="LOGGEDIN">loggedin</string>
 
     <!--  ************************************************* -->
     <!-- For 3rd fragment MultiListDialog -->

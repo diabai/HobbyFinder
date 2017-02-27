@@ -20,6 +20,7 @@ import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.LoggingBehavior;
+import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.facebook.login.widget.ProfilePictureView;
@@ -82,11 +83,7 @@ public class LogInFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mCallbackManager = CallbackManager.Factory.create();
-        //Check if user is looged in or not
-        if (isLoggedIn()) {
-            Intent intent = new Intent(getActivity(), Dashboard.class);
-            startActivity(intent);
-        }
+        LoginManager.getInstance().logOut();
     }
 
     /**
@@ -102,7 +99,6 @@ public class LogInFragment extends Fragment {
                              Bundle savedInstanceState) {
         //Inflating the layout when this fragment is launched
         View v = inflater.inflate(R.layout.fragment_log_in, container, false);
-
 
         /*
             To homepage button. Currently the logic is not completed
@@ -229,8 +225,6 @@ public class LogInFragment extends Fragment {
     public void onStop() {
         super.onStop();
     }
-
-
     /**
      * When the user is done with the subsequent activity
      *
@@ -291,6 +285,5 @@ public class LogInFragment extends Fragment {
      */
     public interface OnListFragmentInteractionListener {
         void setUser(User user);
-
     }
 }

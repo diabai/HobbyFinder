@@ -7,7 +7,6 @@ import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
-import android.util.Log;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -102,8 +101,6 @@ public class HobbyFragment extends DialogFragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
-
-
         try {
             hobbiesListener = (UserHobbiesListener) getTargetFragment();
         } catch (Exception e) {
@@ -130,9 +127,7 @@ public class HobbyFragment extends DialogFragment {
         //Creating the hobby list by calling the async task
         try {
             task.execute(new String[]{HOBBIES_URL}).get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
+        } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
         mArray = mHobbyList.toArray(new CharSequence[mHobbyList.size()]);
@@ -166,8 +161,6 @@ public class HobbyFragment extends DialogFragment {
                             builder.append(" ");
                         }
 
-
-
                         Toast.makeText(getActivity(), builder.toString(), Toast.LENGTH_LONG)
                                 .show();
 
@@ -193,7 +186,6 @@ public class HobbyFragment extends DialogFragment {
     }
 
     public interface UserHobbiesListener {
-
         void passHobbies(String theUserHobbies);
     }
 
@@ -203,7 +195,7 @@ public class HobbyFragment extends DialogFragment {
      */
     private void convertJsonArray(JSONArray jArray) {
         for (int i = 0; i < jArray.length(); i++) {
-            JSONObject obj = null;
+            JSONObject obj;
             try {
                 obj = jArray.getJSONObject(i);
                 mHobbyList.add((String) obj.get("hobbyName"));
@@ -212,7 +204,6 @@ public class HobbyFragment extends DialogFragment {
             }
         }
     }
-
 
     /**
      * DownloadHobbiesTask inner class.

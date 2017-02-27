@@ -1,6 +1,7 @@
 package diabai.uw.tacoma.edu.hobbyfinder;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -11,6 +12,15 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.Profile;
+
+import org.json.JSONException;
+
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +54,12 @@ public class CreateAccountFragment extends Fragment  {
      */
     private final static String USER_ADD_URL
             = "http://cssgate.insttech.washington.edu/~_450bteam1/addUser.php?";
+
+    /**
+     * URL to add check if user exists
+     */
+    private final static String CHECK_IF_USER_EXISTS
+            = "http://cssgate.insttech.washington.edu/~_450bteam1/checkIfUserExists.php?";
 
     /**
      * The user's name
@@ -124,6 +140,9 @@ public class CreateAccountFragment extends Fragment  {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_create_account, container, false);
 
+        String urlCheckIfExists = buildCheckIfExistsUrl(view);
+
+        mListener.checkIfExists(urlCheckIfExists);
 
         mUserName = (TextView) view.findViewById(R.id.create_name);
         mUserEmail = (TextView) view.findViewById(R.id.create_email);
@@ -246,6 +265,28 @@ public class CreateAccountFragment extends Fragment  {
     }
 
     /**
+     * Builds the url for adding a user.
+     *
+     * @param v the view
+     * @return returns the url
+     */
+    private String buildCheckIfExistsUrl(View v) {
+
+        StringBuilder sb = new StringBuilder(CHECK_IF_USER_EXISTS);
+
+        try {
+            String userId = Profile.getCurrentProfile().getId();
+            sb.append("id=");
+            sb.append(userId);
+            Log.i("UserAddFragment", sb.toString());
+        } catch (Exception e) {
+            Toast.makeText(v.getContext(), "Something wrong with the url" + e.getMessage(), Toast.LENGTH_LONG)
+                    .show();
+        }
+        return sb.toString();
+    }
+
+    /**
      * Checks if all textviews are empty or not
      *
      * @return true if none of the textviews are empty, else false
@@ -291,8 +332,6 @@ public class CreateAccountFragment extends Fragment  {
         mListener = null;
     }
 
-
-
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -306,7 +345,7 @@ public class CreateAccountFragment extends Fragment  {
     public interface CreateAccountFragmentInteractionListener {
         // Once a user hits the submit account button.
         void createAccount(String url);
-
         void launchHobbyDialog();
+        void checkIfExists(String url);
     }
 }

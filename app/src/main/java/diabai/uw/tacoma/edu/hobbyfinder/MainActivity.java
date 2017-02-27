@@ -3,13 +3,9 @@ package diabai.uw.tacoma.edu.hobbyfinder;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Toast;
-
-import com.facebook.login.LoginFragment;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -99,6 +95,19 @@ public class MainActivity extends AppCompatActivity implements
             fragment.show(getSupportFragmentManager(), "launch");
     }
 
+    /**
+     * This method checks if a user exists already in our DB
+     * @param url
+     */
+    @Override
+    public void checkIfExists(String url) {
+        HobbyFinderTask task = new HobbyFinderTask();
+        task.execute(new String[]{url.toString()});
+
+        // Takes you back to the previous fragment by popping
+//        getSupportFragmentManager().popBackStackImmediate();
+    }
+
     // My idea for the passing of hobbies
     @Override
     public void passHobbies(String theUserHobbies) {
@@ -170,10 +179,17 @@ public class MainActivity extends AppCompatActivity implements
                             , Toast.LENGTH_LONG)
                             .show();
                 } else {
-                    Toast.makeText(getApplicationContext(), "Failed: "
-                                    + jsonObject.get("error")
-                            , Toast.LENGTH_LONG)
-                            .show();
+                    //This is only used when checking if a user exists
+                    if("User exists already".equals(jsonObject.get("result"))) {
+                        Intent intent = new Intent(getApplicationContext(), Dashboard.class);
+                        startActivity(intent);
+                    }
+                    else {
+                        Toast.makeText(getApplicationContext(), "Failed: "
+                                        + jsonObject.get("error")
+                                , Toast.LENGTH_LONG)
+                                .show();
+                    }
                 }
             } catch (JSONException e) {
                 Toast.makeText(getApplicationContext(), "Something wrong with the data" +

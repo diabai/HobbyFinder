@@ -200,8 +200,24 @@ public class CreateAccountFragment extends Fragment  {
 
         if ( ((MainActivity)getActivity()).getHobbiesFromFragment()!= null){
           //  Log.i("CreateccountFragmen", ((MainActivity) getActivity()).getHobbiesFromFragment()); //list of hobbies is passed here in the cast
-           // selectedHobbies = ((MainActivity) getActivity()).getHobbiesFromFragment();
-           Log.i("in my onstart", ((MainActivity) getActivity()).getHobbiesFromFragment());
+           selectedHobbies = ((MainActivity) getActivity()).getHobbiesFromFragment();
+           Log.i("IN MY HOBBIES", ((MainActivity) getActivity()).getHobbiesFromFragment());
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();  // Always call the superclass method first
+        Bundle args = getArguments();
+        if (args != null) {
+            // Set the textviews to the user passed in
+            updateUserView((User) args.getSerializable(USER_SELECTED));
+        }
+
+        if ( ((MainActivity)getActivity()).getHobbiesFromFragment()!= null){
+            //  Log.i("CreateccountFragmen", ((MainActivity) getActivity()).getHobbiesFromFragment()); //list of hobbies is passed here in the cast
+            selectedHobbies = ((MainActivity) getActivity()).getHobbiesFromFragment();
+            Log.i("IN MY HOBBIES", ((MainActivity) getActivity()).getHobbiesFromFragment());
         }
     }
 
@@ -262,9 +278,9 @@ public class CreateAccountFragment extends Fragment  {
             sb.append("&hometown=");
             sb.append(URLEncoder.encode(userHometown, "UTF-8"));
 
-        /*   *//* HOBBIES ARE ADDED HERE*//*
             sb.append("&hobbies=");
-            sb.append(URLEncoder.encode(selectedHobbies, "UTF-8"));*/
+            selectedHobbies = ((MainActivity) getActivity()).getHobbiesFromFragment();
+            sb.append(URLEncoder.encode(selectedHobbies, "UTF-8"));
 
 
         } catch (Exception e) {
@@ -307,14 +323,6 @@ public class CreateAccountFragment extends Fragment  {
                 mUserEmail != null && mUserEmail.getText().toString().isEmpty() ||
                 mUserGender != null && mUserGender.getText().toString().isEmpty() ||
                 mUserHomeTown != null && mUserHomeTown.getText().toString().isEmpty());
-    }
-
-    /**
-     * Generated fragment lifecycle method once fragment is created
-     */
-    @Override
-    public void onResume() {
-        super.onResume();
     }
 
     /**

@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity implements
 
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, createAccountFragment)
-                .addToBackStack(null)
+                //.addToBackStack(null)
                 .commit();
     }
 

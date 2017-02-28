@@ -19,6 +19,9 @@ import com.facebook.login.widget.ProfilePictureView;
 public class Dashboard extends AppCompatActivity {
     private ProfilePictureView mProfilePictureView;
 
+
+
+    private String hobbies;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +38,9 @@ public class Dashboard extends AppCompatActivity {
         inflater.inflate(R.menu.menu_user, menu);
         return true;
     }
+
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem menuItem) {
@@ -53,6 +59,16 @@ public class Dashboard extends AppCompatActivity {
             return false;
         }
     }
+
+
+    public void setDashboardHobbies(String s) {
+        hobbies = s;
+    }
+
+    public String getDashboardHobbies() {
+        return hobbies;
+    }
+
 
     /**
      * This method gets launched one a users clicks the search button

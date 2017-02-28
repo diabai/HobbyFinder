@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.util.Log;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -165,21 +166,16 @@ public class HobbyFragment extends DialogFragment {
                         Toast.makeText(getActivity(), builder.toString(), Toast.LENGTH_LONG)
                                 .show();
 
-                        ((MainActivity)getActivity()).setHobbies(builder.toString());
+                        //If dashboard activity launches this fragment
+                        if (getContext() instanceof Dashboard) {
+                           ((Dashboard)getActivity()).setDashboardHobbies(builder.toString());
+                        } else {
+                            //MainActivity launched it
+                            ((MainActivity)getActivity()).setHobbies(builder.toString());
+                        }
 
-                       /* builder.toString()  contains the hobbies that were selected.*/
 
-
-                        //Experimenting with passing of data through Bundle
-                        //Passing the data back to the create account fragment
-                      /*  Bundle args = new Bundle();
-                        args.putString("selectedHobbies", builder.toString());
-                        CreateAccountFragment newFragment = new CreateAccountFragment ();
-                        newFragment.setArguments(args);*/
-
-                                //Currently commented because it crashed. EXPERIMENT WITH listener interface to pass data
-//                        hobbiesListener.passHobbies(builder.toString());
-
+                        Log.i("good", ((Dashboard)getActivity()).getDashboardHobbies());
 
                     }
                 })
@@ -191,19 +187,6 @@ public class HobbyFragment extends DialogFragment {
                 });
         return builder.create();
     }
-
-    //EXPERIMENT BEING DONE HERE
- /*   @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-
-        try {
-            this.hobbiesListener = (UserHobbiesListener)context;
-        }
-        catch (final ClassCastException e) {
-            throw new ClassCastException(context.toString() + " must implement UserHobbiesListener");
-        }
-    }*/
 
     public interface UserHobbiesListener {
         void passHobbies(String theUserHobbies);

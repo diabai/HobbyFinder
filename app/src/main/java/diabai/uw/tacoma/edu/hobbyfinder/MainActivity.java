@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -49,7 +50,6 @@ public class MainActivity extends AppCompatActivity implements
                     .commit();
         }
     }
-
 
     /**
      * The create account method used from
@@ -169,6 +169,7 @@ public class MainActivity extends AppCompatActivity implements
                         urlConnection.disconnect();
                 }
             }
+
             return response;
         }
 
@@ -203,6 +204,7 @@ public class MainActivity extends AppCompatActivity implements
                     }
                 }
             } catch (JSONException e) {
+
                 Toast.makeText(getApplicationContext(), "Something wrong with the data" +
                         e.getMessage(), Toast.LENGTH_LONG).show();
             }

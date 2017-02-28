@@ -100,32 +100,8 @@ public class LogInFragment extends Fragment {
         //Inflating the layout when this fragment is launched
         View v = inflater.inflate(R.layout.fragment_log_in, container, false);
 
-        /*
-            To homepage button. Currently the logic is not completed
-            so we are leaving it hidden for now.
-            If user is logged in display the home page button and add a listener to it
-        */
-
-/*        if (true) { //change back to isUserLoggedIn once it is implemented to check against db
-            mHomePageButton = (Button) v.findViewById(R.id.home_page_button);
-            mHomePageButton.setVisibility(isLoggedIn ? View.VISIBLE : View.INVISIBLE);
-            mHomePageButton.setVisibility(View.VISIBLE);
-            mHomePageButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // change to another fragment or activity such as user homepage
-                    CreateAccountFragment createAccountFragment = new CreateAccountFragment();
-                    getFragmentManager().beginTransaction()
-                            .replace(R.id.fragment_container, createAccountFragment)
-                            .addToBackStack(null)
-                            .commit();
-                }
-            });
-
-        }*/
         return v;
     }
-
 
     /**
      * Contains all the facebook button interactions and responses.
@@ -147,9 +123,8 @@ public class LogInFragment extends Fragment {
 
         // Login button Callback to handle Login related events
         mLoginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
-
             /**
-             * On success gets called whe a user logs in for the
+             * On success gets called when a user logs in for the
              * first time.
              * @param loginResult the result from the login
              */
@@ -189,10 +164,12 @@ public class LogInFragment extends Fragment {
                         });
 
                 //Saving the stuff in case we need to use it in another fragment
+
                 Bundle parameters = new Bundle();
                 parameters.putString("fields", "id, name, email, gender, birthday");
                 request.setParameters(parameters);
                 request.executeAsync();
+
             }
 
             /**

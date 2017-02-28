@@ -3,6 +3,7 @@ package diabai.uw.tacoma.edu.hobbyfinder;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -164,13 +165,19 @@ public class HobbyFragment extends DialogFragment {
                         Toast.makeText(getActivity(), builder.toString(), Toast.LENGTH_LONG)
                                 .show();
 
+                        ((MainActivity)getActivity()).setHobbies(builder.toString());
+
+                       /* builder.toString()  contains the hobbies that were selected.*/
+
+
+                        //Experimenting with passing of data through Bundle
                         //Passing the data back to the create account fragment
                       /*  Bundle args = new Bundle();
                         args.putString("selectedHobbies", builder.toString());
                         CreateAccountFragment newFragment = new CreateAccountFragment ();
                         newFragment.setArguments(args);*/
 
-                                //Currently commented because it crashed. We must move it to
+                                //Currently commented because it crashed. EXPERIMENT WITH listener interface to pass data
 //                        hobbiesListener.passHobbies(builder.toString());
 
 
@@ -184,6 +191,19 @@ public class HobbyFragment extends DialogFragment {
                 });
         return builder.create();
     }
+
+    //EXPERIMENT BEING DONE HERE
+ /*   @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        try {
+            this.hobbiesListener = (UserHobbiesListener)context;
+        }
+        catch (final ClassCastException e) {
+            throw new ClassCastException(context.toString() + " must implement UserHobbiesListener");
+        }
+    }*/
 
     public interface UserHobbiesListener {
         void passHobbies(String theUserHobbies);

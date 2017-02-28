@@ -58,13 +58,19 @@ public class Dashboard extends AppCompatActivity {
      * This method gets launched one a users clicks the search button
      */
     public void launch(View v) {
+
         Log.i("Bye", "**");
+
         DialogFragment fragment = null;
+
         if (v.getId() == R.id.btn_search) {
+
             fragment = new HobbyFragment();
 
         }
         if (fragment != null)
+            //trying to get data from that fragment so that i can  search retrieve those users from the db with similiar hobbies
+         //   fragment.setTargetFragment((Fragment)this, 1);
             fragment.show(getSupportFragmentManager(), "search");
     }
 

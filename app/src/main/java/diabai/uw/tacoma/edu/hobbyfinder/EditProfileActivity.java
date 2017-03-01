@@ -4,8 +4,6 @@ import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -57,6 +55,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
     /**
      * Populating the text views with user information
+     *
      * @param result string from the json
      * @throws JSONException
      */
@@ -75,6 +74,7 @@ public class EditProfileActivity extends AppCompatActivity {
     /**
      * Editing user information by submitting
      * to the EditUserTask
+     *
      * @param v view
      */
     public void editUser(View v) {
@@ -88,26 +88,24 @@ public class EditProfileActivity extends AppCompatActivity {
     private String buildEditUserURL() {
         StringBuilder sb = new StringBuilder(USER_EDIT_URL);
         try {
-            String courseId = mUserIdTextView.getText().toString();
+            String userId = mUserIdTextView.getText().toString();
             sb.append("id=");
-            sb.append(courseId);
+            sb.append(userId);
 
-
-            String courseShortDesc = mUserNameTextView.getText().toString();
+            String userName = mUserNameTextView.getText().toString();
             sb.append("&name=");
-            sb.append(URLEncoder.encode(courseShortDesc, "UTF-8"));
+            sb.append(URLEncoder.encode(userName, "UTF-8"));
 
-
-            String courseLongDesc = mUserEmailTextView.getText().toString();
+            String userEmail = mUserEmailTextView.getText().toString();
             sb.append("&email=");
-            sb.append(URLEncoder.encode(courseLongDesc, "UTF-8"));
+            sb.append(URLEncoder.encode(userEmail, "UTF-8"));
 
-            String coursePrereqs = mUserHometownTextView.getText().toString();
+            String userHomeTown = mUserHometownTextView.getText().toString();
             sb.append("&hometown=");
-            sb.append(URLEncoder.encode(coursePrereqs, "UTF-8"));
-            Log.i("EditUser", sb.toString());
+            sb.append(URLEncoder.encode(userHomeTown, "UTF-8"));
         } catch (Exception e) {
-            Toast.makeText(getApplicationContext(), "Something wrong with the url" + e.getMessage(), Toast.LENGTH_LONG)
+            Toast.makeText(getApplicationContext(), "Something wrong with the url inside EditProfile"
+                    + e.getMessage(), Toast.LENGTH_LONG)
                     .show();
         }
         return sb.toString();
@@ -166,14 +164,17 @@ public class EditProfileActivity extends AppCompatActivity {
          */
         @Override
         protected void onPostExecute(String result) {
-            if (result != null && !result.isEmpty()) {
-                Toast.makeText(getApplicationContext(), "Success!"
-                        , Toast.LENGTH_LONG)
-                        .show();
-            } else {
-                Toast.makeText(getApplicationContext(), "Failed : "
-                        , Toast.LENGTH_LONG)
-                        .show();
+            try {
+                JSONObject jsonObject = new JSONObject(result);
+                String status = (String) jsonObject.get("result");
+                Log.w("EditProfileActivity", "Grabbed user info successfully");
+                if ("User edited success".equals(status)) {
+                    Toast.makeText(getApplicationContext(), "User info edited successfully"
+                            , Toast.LENGTH_LONG).show();
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+                Log.w("EditProfileActivity", "Failed to grab user info");
             }
         }
     }

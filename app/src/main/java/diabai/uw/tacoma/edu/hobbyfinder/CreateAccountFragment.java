@@ -1,7 +1,6 @@
 package diabai.uw.tacoma.edu.hobbyfinder;
 
 import android.content.Context;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -14,16 +13,7 @@ import android.widget.Toast;
 
 import com.facebook.Profile;
 
-import org.json.JSONException;
-
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.List;
 
 import diabai.uw.tacoma.edu.hobbyfinder.user.User;
 
@@ -56,12 +46,6 @@ public class CreateAccountFragment extends Fragment  {
             = "http://cssgate.insttech.washington.edu/~_450bteam1/addUser.php?";
 
     /**
-     * URL to add check if user exists
-     */
-    private final static String CHECK_IF_USER_EXISTS
-            = "http://cssgate.insttech.washington.edu/~_450bteam1/checkIfUserExists.php?";
-
-    /**
      * The user's name
      */
     private TextView mUserName;
@@ -77,21 +61,6 @@ public class CreateAccountFragment extends Fragment  {
      * The user's hometown
      */
     private TextView mUserHomeTown;
-    /**
-     * The user's ID
-     */
-    private String mUserId;
-
-
-    /**
-     * Hobbies selected by the user
-     */
-    String selectedHobbies;
-
-    /**
-     * User hobbies
-     */
-    String userHobbies;
 
     /**
      * Default contructor
@@ -128,8 +97,6 @@ public class CreateAccountFragment extends Fragment  {
             String mParam1 = getArguments().getString(ARG_PARAM1);
             String mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
-        selectedHobbies = null;
     }
 
     /**
@@ -145,10 +112,6 @@ public class CreateAccountFragment extends Fragment  {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_create_account, container, false);
-
-        String urlCheckIfExists = buildCheckIfExistsUrl(view);
-
-        mListener.checkIfExists(urlCheckIfExists);
 
         mUserName = (TextView) view.findViewById(R.id.create_name);
         mUserEmail = (TextView) view.findViewById(R.id.create_email);
@@ -197,28 +160,11 @@ public class CreateAccountFragment extends Fragment  {
             // Set the textviews to the user passed in
             updateUserView((User) args.getSerializable(USER_SELECTED));
         }
-
-        if ( ((MainActivity)getActivity()).getHobbiesFromFragment()!= null){
-          //  Log.i("CreateccountFragmen", ((MainActivity) getActivity()).getHobbiesFromFragment()); //list of hobbies is passed here in the cast
-           selectedHobbies = ((MainActivity) getActivity()).getHobbiesFromFragment();
-           Log.i("IN MY HOBBIES", ((MainActivity) getActivity()).getHobbiesFromFragment());
-        }
     }
 
     @Override
     public void onResume() {
         super.onResume();  // Always call the superclass method first
-        Bundle args = getArguments();
-        if (args != null) {
-            // Set the textviews to the user passed in
-            updateUserView((User) args.getSerializable(USER_SELECTED));
-        }
-
-        if ( ((MainActivity)getActivity()).getHobbiesFromFragment()!= null){
-            //  Log.i("CreateccountFragmen", ((MainActivity) getActivity()).getHobbiesFromFragment()); //list of hobbies is passed here in the cast
-            selectedHobbies = ((MainActivity) getActivity()).getHobbiesFromFragment();
-            Log.i("IN MY HOBBIES", ((MainActivity) getActivity()).getHobbiesFromFragment());
-        }
     }
 
 
@@ -229,8 +175,6 @@ public class CreateAccountFragment extends Fragment  {
      * @param user user object with information
      */
     public void updateUserView(User user) {
-        mUserId = user.getmId();
-
         TextView userNameTextView = (TextView) getActivity().findViewById(R.id.create_name);
         userNameTextView.setText(user.getmName());
 
@@ -245,7 +189,6 @@ public class CreateAccountFragment extends Fragment  {
     }
 
 
-
     /**
      * Builds the url for adding a user.
      *
@@ -255,10 +198,8 @@ public class CreateAccountFragment extends Fragment  {
     private String buildUserAddURL(View v) {
 
         StringBuilder sb = new StringBuilder(USER_ADD_URL);
-
         try {
-
-            String userId = mUserId;
+            String userId = Profile.getCurrentProfile().getId();
             sb.append("id=");
             sb.append(userId);
 
@@ -279,35 +220,9 @@ public class CreateAccountFragment extends Fragment  {
             sb.append(URLEncoder.encode(userHometown, "UTF-8"));
 
             sb.append("&hobbies=");
-            selectedHobbies = ((MainActivity) getActivity()).getHobbiesFromFragment();
-            sb.append(URLEncoder.encode(selectedHobbies, "UTF-8"));
-
-
+            sb.append(URLEncoder.encode(((MainActivity) getActivity()).getHobbiesFromFragment(), "UTF-8"));
         } catch (Exception e) {
-            Toast.makeText(v.getContext(), "Something wrong with the url here" + e.getMessage(), Toast.LENGTH_LONG)
-                    .show();
-        }
-        return sb.toString();
-    }
-
-    /**
-     * Builds the url for adding a user.
-     *
-     * @param v the view
-     * @return returns the url
-     */
-    private String buildCheckIfExistsUrl(View v) {
-
-        StringBuilder sb = new StringBuilder(CHECK_IF_USER_EXISTS);
-
-        try {
-            String userId = Profile.getCurrentProfile().getId();
-            sb.append("id=");
-            sb.append(userId);
-            Log.i("UserAddFragment", sb.toString());
-        } catch (Exception e) {
-            Toast.makeText(v.getContext(), "Something wrong with the url" + e.getMessage(), Toast.LENGTH_LONG)
-                    .show();
+            Log.w("CreateAccountFragment", "Something wrong with the url here");
         }
         return sb.toString();
     }
@@ -318,8 +233,7 @@ public class CreateAccountFragment extends Fragment  {
      * @return true if none of the textviews are empty, else false
      */
     boolean checkIfValid() {
-        return !(mUserId != null && mUserId.isEmpty() ||
-                mUserName != null && mUserName.getText().toString().isEmpty() ||
+        return !(mUserName != null && mUserName.getText().toString().isEmpty() ||
                 mUserEmail != null && mUserEmail.getText().toString().isEmpty() ||
                 mUserGender != null && mUserGender.getText().toString().isEmpty() ||
                 mUserHomeTown != null && mUserHomeTown.getText().toString().isEmpty());
@@ -361,9 +275,7 @@ public class CreateAccountFragment extends Fragment  {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface CreateAccountFragmentInteractionListener {
-        // Once a user hits the submit account button.
-        void createAccount(String url);
+        void createAccount(String url); // Once a user hits the submit account button.
         void launchHobbyDialog();
-        void checkIfExists(String url);
     }
 }

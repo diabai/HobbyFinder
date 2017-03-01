@@ -3,10 +3,12 @@ package diabai.uw.tacoma.edu.hobbyfinder;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.util.Log;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -50,9 +52,15 @@ public class HobbyFragment extends DialogFragment {
     private static final String HOBBIES_URL
             = "http://cssgate.insttech.washington.edu/~_450bteam1/hobbies_list.php?cmd=hobbies";
 
-
-
     /**
+     * URL to add a user hobbies
+     */
+    private final static String USER_ADD_HOBBIES
+            = "http://cssgate.insttech.washington.edu/~_450bteam1/user_hobbies.php?";
+
+
+    UserHobbiesListener hobbiesListener;
+    /*
      * Fields automatically generated once fragment is created
      */
     private String mParam1;
@@ -94,7 +102,14 @@ public class HobbyFragment extends DialogFragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        try {
+            hobbiesListener = (UserHobbiesListener) getTargetFragment();
+        } catch (Exception e) {
+            throw new ClassCastException("Calling Fragment must implement UserHobbiesListener");
+        }
     }
+
 
 
     /**
@@ -114,9 +129,7 @@ public class HobbyFragment extends DialogFragment {
         //Creating the hobby list by calling the async task
         try {
             task.execute(new String[]{HOBBIES_URL}).get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
+        } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
         mArray = mHobbyList.toArray(new CharSequence[mHobbyList.size()]);
@@ -147,16 +160,23 @@ public class HobbyFragment extends DialogFragment {
                         String userHobbies = "";
                         for (int i = 0; i < mSelectedItems.size(); i++) {
                             builder.append(mArray[(int) mSelectedItems.get(i)]);
-
-                            // THIS IS THE STRING CONTAINING THE HOBBIES SELECTED... DONT DELETE THE STATEMENT ABOVE WE MIGHT NEED IT LATER
-                            userHobbies+= mSelectedItems.get(i) + " ";
                             builder.append(" ");
-
                         }
-
 
                         Toast.makeText(getActivity(), builder.toString(), Toast.LENGTH_LONG)
                                 .show();
+
+                        //If dashboard activity launches this fragment
+                        if (getContext() instanceof Dashboard) {
+                           ((Dashboard)getActivity()).setDashboardHobbies(builder.toString());
+                        } else {
+                            //MainActivity launched it
+                            ((MainActivity)getActivity()).setHobbies(builder.toString());
+                        }
+
+
+                        Log.i("good", ((Dashboard)getActivity()).getDashboardHobbies());
+
                     }
                 })
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
@@ -168,6 +188,9 @@ public class HobbyFragment extends DialogFragment {
         return builder.create();
     }
 
+    public interface UserHobbiesListener {
+        void passHobbies(String theUserHobbies);
+    }
 
     /**
      * Converts the jsonArray to something useful
@@ -175,7 +198,7 @@ public class HobbyFragment extends DialogFragment {
      */
     private void convertJsonArray(JSONArray jArray) {
         for (int i = 0; i < jArray.length(); i++) {
-            JSONObject obj = null;
+            JSONObject obj;
             try {
                 obj = jArray.getJSONObject(i);
                 mHobbyList.add((String) obj.get("hobbyName"));
@@ -184,7 +207,6 @@ public class HobbyFragment extends DialogFragment {
             }
         }
     }
-
 
     /**
      * DownloadHobbiesTask inner class.

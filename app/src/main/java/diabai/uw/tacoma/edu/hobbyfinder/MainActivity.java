@@ -82,7 +82,6 @@ public class MainActivity extends AppCompatActivity implements
 
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, createAccountFragment)
-                //.addToBackStack(null)
                 .commit();
     }
 
@@ -185,21 +184,25 @@ public class MainActivity extends AppCompatActivity implements
                                 , Toast.LENGTH_LONG)
                                 .show();
                         Intent intent = new Intent(getApplicationContext(), Dashboard.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
+                        finish();
                         break;
                     }
                     case "User exists already": {//This is only used when checking if a user exists
                         Intent intent = new Intent(getApplicationContext(), Dashboard.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
+                        finish();
                         break;
                     }
-                    case "No such user":
-                        CreateAccountFragment createAccountFragment = new CreateAccountFragment();
-                        getSupportFragmentManager().beginTransaction()
-                                .replace(R.id.fragment_container, createAccountFragment)
-                                .addToBackStack(null)
-                                .commit();
-                        break;
+//                    case "No such user":
+//                        CreateAccountFragment createAccountFragment = new CreateAccountFragment();
+//                        getSupportFragmentManager().beginTransaction()
+//                                .replace(R.id.fragment_container, createAccountFragment)
+//                                .addToBackStack(null)
+//                                .commit();
+//                        break;
                     default:
                         Log.w("MainActivity", "Failed" + jsonObject.get("error"));
                         break;

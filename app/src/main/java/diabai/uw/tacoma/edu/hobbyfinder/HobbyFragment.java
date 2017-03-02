@@ -175,7 +175,7 @@ public class HobbyFragment extends DialogFragment {
                         }
 
 
-                        Log.i("good", ((Dashboard)getActivity()).getDashboardHobbies());
+//                        Log.i("good", ((Dashboard)getActivity()).getDashboardHobbies());
 
                     }
                 })

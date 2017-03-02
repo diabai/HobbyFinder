@@ -1,10 +1,12 @@
 package diabai.uw.tacoma.edu.hobbyfinder;
 
 import android.os.AsyncTask;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,7 +24,10 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.concurrent.ExecutionException;
 
-public class EditProfileActivity extends AppCompatActivity {
+import static diabai.uw.tacoma.edu.hobbyfinder.CreateAccountFragment.*;
+
+public class EditProfileActivity extends AppCompatActivity implements
+        CreateAccountFragmentInteractionListener{
     private final static String USER_EDIT_URL
             = "http://cssgate.insttech.washington.edu/~_450bteam1/editUser.php?";
     private final static String USER_INFO =
@@ -31,6 +36,8 @@ public class EditProfileActivity extends AppCompatActivity {
     private TextView mUserNameTextView;
     private TextView mUserEmailTextView;
     private TextView mUserHometownTextView;
+    private TextView mUserHobbiesTextView;
+    private String hobbiesFromFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +47,7 @@ public class EditProfileActivity extends AppCompatActivity {
         mUserNameTextView = (TextView) findViewById(R.id.edit_user_name);
         mUserEmailTextView = (TextView) findViewById(R.id.edit_email);
         mUserHometownTextView = (TextView) findViewById(R.id.edit_hometown);
+        mUserHobbiesTextView = (TextView) findViewById(R.id.edit_hobbies);
 
         /*
             Below calling the get for getting users information to
@@ -51,6 +59,15 @@ public class EditProfileActivity extends AppCompatActivity {
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
+
+        Button addHobbiesButton = (Button) findViewById(R.id.add_hobbies_frag_button);
+        addHobbiesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Launches the hobby dialog so user can select his/her hobbies
+                launchHobbyDialog();
+            }
+        });
     }
 
     /**
@@ -68,6 +85,7 @@ public class EditProfileActivity extends AppCompatActivity {
             mUserNameTextView.setText(obj.getString("name"));
             mUserEmailTextView.setText(obj.getString("email"));
             mUserHometownTextView.setText(obj.getString("hometown"));
+            mUserHobbiesTextView.setText(obj.getString("hobbies"));
         }
     }
 
@@ -83,6 +101,14 @@ public class EditProfileActivity extends AppCompatActivity {
 
         // Takes you back to the previous fragment by popping the current fragment out.
         getSupportFragmentManager().popBackStackImmediate();
+    }
+
+    public void setHobbies(String s) {
+        hobbiesFromFragment = s;
+    }
+
+    public String getHobbiesFromFragment() {
+        return hobbiesFromFragment;
     }
 
     private String buildEditUserURL() {
@@ -103,12 +129,35 @@ public class EditProfileActivity extends AppCompatActivity {
             String userHomeTown = mUserHometownTextView.getText().toString();
             sb.append("&hometown=");
             sb.append(URLEncoder.encode(userHomeTown, "UTF-8"));
+
+            sb.append("&hobbies=");
+            sb.append(URLEncoder.encode(getHobbiesFromFragment(), "UTF-8"));
+
         } catch (Exception e) {
             Toast.makeText(getApplicationContext(), "Something wrong with the url inside EditProfile"
                     + e.getMessage(), Toast.LENGTH_LONG)
                     .show();
         }
         return sb.toString();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        // below line to be commented to prevent crash on nougat.
+        // http://blog.sqisland.com/2016/09/transactiontoolargeexception-crashes-nougat.html
+        //
+        //super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void createAccount(String url) {
+    }
+
+    @Override
+    public void launchHobbyDialog() {
+        DialogFragment fragment = new HobbyFragment();
+
+        fragment.show(getSupportFragmentManager(), "launch");
     }
 
     /**
@@ -171,6 +220,8 @@ public class EditProfileActivity extends AppCompatActivity {
                 if ("User edited success".equals(status)) {
                     Toast.makeText(getApplicationContext(), "User info edited successfully"
                             , Toast.LENGTH_LONG).show();
+                    finish();
+                    startActivity(getIntent());
                 }
             } catch (JSONException e) {
                 e.printStackTrace();

@@ -160,7 +160,7 @@ public class HobbyFragment extends DialogFragment {
                         String userHobbies = "";
                         for (int i = 0; i < mSelectedItems.size(); i++) {
                             builder.append(mArray[(int) mSelectedItems.get(i)]);
-                            builder.append(" ");
+                            builder.append(", ");
                         }
 
                         Toast.makeText(getActivity(), builder.toString(), Toast.LENGTH_LONG)
@@ -169,6 +169,8 @@ public class HobbyFragment extends DialogFragment {
                         //If dashboard activity launches this fragment
                         if (getContext() instanceof Dashboard) {
                            ((Dashboard)getActivity()).setDashboardHobbies(builder.toString());
+                        } else if(getContext() instanceof EditProfileActivity) {
+                            ((EditProfileActivity)getActivity()).setHobbies(builder.toString());
                         } else {
                             //MainActivity launched it
                             ((MainActivity)getActivity()).setHobbies(builder.toString());

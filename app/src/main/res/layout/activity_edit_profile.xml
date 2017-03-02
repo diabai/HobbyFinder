@@ -35,6 +35,19 @@
         android:hint="@string/hometown_hint"
         android:id="@+id/edit_hometown" />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/hobbies_hint"
+        android:id="@+id/edit_hobbies" />
+
+    <Button
+        android:id="@+id/add_hobbies_frag_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:text="@string/edit_hobbies" />
+
     <Button
         android:layout_width="wrap_content"
         android:id="@+id/edit_course_frag_button_submit"

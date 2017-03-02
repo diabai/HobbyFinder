@@ -17,10 +17,6 @@ import com.facebook.login.LoginManager;
 import com.facebook.login.widget.ProfilePictureView;
 
 public class Dashboard extends AppCompatActivity {
-    private ProfilePictureView mProfilePictureView;
-
-
-
     private String hobbies;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +24,7 @@ public class Dashboard extends AppCompatActivity {
         setContentView(R.layout.activity_dashboard);
 
         // The line below will get all the fields available in the JSON object
-        mProfilePictureView = (ProfilePictureView) findViewById(R.id.profile_image);
+        ProfilePictureView mProfilePictureView = (ProfilePictureView) findViewById(R.id.profile_image);
         mProfilePictureView.setProfileId(Profile.getCurrentProfile().getId());
     }
 
@@ -39,8 +35,13 @@ public class Dashboard extends AppCompatActivity {
         return true;
     }
 
-
-
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        // below line to be commented to prevent crash on nougat.
+        // http://blog.sqisland.com/2016/09/transactiontoolargeexception-crashes-nougat.html
+        //
+        //super.onSaveInstanceState(outState);
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem menuItem) {

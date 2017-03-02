@@ -91,6 +91,14 @@ public class MainActivity extends AppCompatActivity implements
         task.execute(new String[]{url.toString()});
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        // below line to be commented to prevent crash on nougat.
+        // http://blog.sqisland.com/2016/09/transactiontoolargeexception-crashes-nougat.html
+        //
+        //super.onSaveInstanceState(outState);
+    }
+
     public void setHobbies(String s) {
         hobbiesFromFragment = s;
     }
@@ -98,7 +106,6 @@ public class MainActivity extends AppCompatActivity implements
     public String getHobbiesFromFragment() {
         return hobbiesFromFragment;
     }
-
 
     /**
      * {

@@ -5,9 +5,11 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -133,10 +135,14 @@ public class HobbyFragment extends DialogFragment {
             e.printStackTrace();
         }
         mArray = mHobbyList.toArray(new CharSequence[mHobbyList.size()]);
-        builder.setTitle(R.string.pick_hobbies)
+        if (getContext() instanceof Dashboard) {
+            builder.setTitle("Select one hobby");  //Searching for one hobby at the time
+        } else {
+            builder.setTitle(R.string.pick_hobbies);
+        }
                 // Specify the list array, the items to be selected by default (null for none),
                 // and the listener through which to receive callbacks when items are selected
-                .setMultiChoiceItems(mArray, null,
+                builder.setMultiChoiceItems(mArray, null,
                         new DialogInterface.OnMultiChoiceClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which,
@@ -151,7 +157,7 @@ public class HobbyFragment extends DialogFragment {
                             }
                         })
                 // Set the action buttons for this dialog fragment
-                .setPositiveButton(R.string.add, new DialogInterface.OnClickListener() {
+                .setPositiveButton(R.string.submit, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         // User clicked OK, so save the mSelectedItems results somewhere
@@ -162,22 +168,32 @@ public class HobbyFragment extends DialogFragment {
                             builder.append(mArray[(int) mSelectedItems.get(i)]);
                             builder.append(", ");
                         }
-
-                        Toast.makeText(getActivity(), builder.toString(), Toast.LENGTH_LONG)
-                                .show();
-
                         //If dashboard activity launches this fragment
                         if (getContext() instanceof Dashboard) {
-                           ((Dashboard)getActivity()).setDashboardHobbies(builder.toString());
+
+                            //Splitting the hobbies string on commas and white spaces
+                            String[] splitHobbies = builder.toString().split("\\s*,\\s*");
+
+                            //Passing the array of selected hobbies to Dashboard class so that i can retrieve there later in UserFragment
+                           ((Dashboard)getActivity()).setDashboardHobbies(splitHobbies);
+
+                            //Lauching the UserFinder activity (parent of UserFragment list)
+                            Intent intent = new Intent(getActivity(), UserFinder.class);
+                            //Passing the hobbies to UserFinder class
+                            startActivity(intent);
+                         //   hobbiesListener.passHobbies(builder.toString());
+
+
                         } else if(getContext() instanceof EditProfileActivity) {
+                            //EditActivity launched it
                             ((EditProfileActivity)getActivity()).setHobbies(builder.toString());
                         } else {
+                            Toast.makeText(getActivity(), builder.toString(), Toast.LENGTH_LONG)
+                                    .show();
                             //MainActivity launched it
                             ((MainActivity)getActivity()).setHobbies(builder.toString());
                         }
 
-
-//                        Log.i("good", ((Dashboard)getActivity()).getDashboardHobbies());
 
                     }
                 })
@@ -190,6 +206,9 @@ public class HobbyFragment extends DialogFragment {
         return builder.create();
     }
 
+    /**
+     *
+     */
     public interface UserHobbiesListener {
         void passHobbies(String theUserHobbies);
     }
@@ -209,6 +228,7 @@ public class HobbyFragment extends DialogFragment {
             }
         }
     }
+
 
     /**
      * DownloadHobbiesTask inner class.

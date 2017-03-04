@@ -1,5 +1,4 @@
 package diabai.uw.tacoma.edu.hobbyfinder;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,13 +10,14 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-
 import com.facebook.Profile;
 import com.facebook.login.LoginManager;
 import com.facebook.login.widget.ProfilePictureView;
 
 public class Dashboard extends AppCompatActivity {
-    private String hobbies;
+
+    private static String [] hobbies;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,22 +61,21 @@ public class Dashboard extends AppCompatActivity {
         }
     }
 
+    public void setDashboardHobbies(String [] s) {
 
-    public void setDashboardHobbies(String s) {
         hobbies = s;
     }
 
-    public String getDashboardHobbies() {
+    public static String [] getDashboardHobbies() {
         return hobbies;
     }
-
 
     /**
      * This method gets launched one a users clicks the search button
      */
     public void launch(View v) {
 
-        Log.i("Bye", "**");
+
 
         DialogFragment fragment = null;
 

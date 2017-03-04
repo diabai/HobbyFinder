@@ -120,11 +120,11 @@ public class MainActivity extends AppCompatActivity implements
         fragment.show(getSupportFragmentManager(), "launch");
     }
 
-    // My idea for the passing of hobbies
     @Override
     public void passHobbies(String theUserHobbies) {
-        String s = theUserHobbies;
+
     }
+
 
     /**
      * The inner class to handle AsyncTasks

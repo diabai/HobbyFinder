@@ -13,6 +13,7 @@ import java.util.List;
  * <p>
  * This class contains the functionality to create and manipulate a User object
  *
+ *
  * @Author: Ibrahim Diabate, Edgard Solorzano
  * @version: 2.0
  */
@@ -76,7 +77,6 @@ public class User implements Serializable {
         return mId;
     }
 
-
     /**
      * Gets the user name
      *
@@ -85,7 +85,6 @@ public class User implements Serializable {
     public String getmName() {
         return mName;
     }
-
 
     /**
      * Gets the user's email
@@ -125,7 +124,6 @@ public class User implements Serializable {
         if (userJSON != null) {
             try {
                 JSONArray arr = new JSONArray(userJSON);
-
                 for (int i = 0; i < arr.length(); i++) {
                     JSONObject obj = arr.getJSONObject(i);
                     User user = new User(obj.getString(User.ID), obj.getString(User.NAME)

@@ -181,9 +181,6 @@ public class HobbyFragment extends DialogFragment {
                             Intent intent = new Intent(getActivity(), UserFinder.class);
                             //Passing the hobbies to UserFinder class
                             startActivity(intent);
-                         //   hobbiesListener.passHobbies(builder.toString());
-
-
                         } else if(getContext() instanceof EditProfileActivity) {
                             //EditActivity launched it
                             ((EditProfileActivity)getActivity()).setHobbies(builder.toString());

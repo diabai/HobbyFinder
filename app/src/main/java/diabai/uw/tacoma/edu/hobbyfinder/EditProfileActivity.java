@@ -27,7 +27,7 @@ import java.util.concurrent.ExecutionException;
 import static diabai.uw.tacoma.edu.hobbyfinder.CreateAccountFragment.*;
 
 public class EditProfileActivity extends AppCompatActivity implements
-        CreateAccountFragmentInteractionListener{
+        CreateAccountFragmentInteractionListener {
     private final static String USER_EDIT_URL
             = "http://cssgate.insttech.washington.edu/~_450bteam1/editUser.php?";
     private final static String USER_INFO =
@@ -111,6 +111,11 @@ public class EditProfileActivity extends AppCompatActivity implements
         return hobbiesFromFragment;
     }
 
+    /**
+     * Builds the url for submiting editing of profile
+     *
+     * @return the url string
+     */
     private String buildEditUserURL() {
         StringBuilder sb = new StringBuilder(USER_EDIT_URL);
         try {
@@ -141,14 +146,22 @@ public class EditProfileActivity extends AppCompatActivity implements
         return sb.toString();
     }
 
+    /**
+     * Used to prevent crash on nougat
+     *
+     * @param outState
+     */
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         // below line to be commented to prevent crash on nougat.
         // http://blog.sqisland.com/2016/09/transactiontoolargeexception-crashes-nougat.html
-        //
         //super.onSaveInstanceState(outState);
     }
 
+    /**
+     * Not really used in here but needed to implement
+     * @param url url to create account
+     */
     @Override
     public void createAccount(String url) {
     }
@@ -156,7 +169,6 @@ public class EditProfileActivity extends AppCompatActivity implements
     @Override
     public void launchHobbyDialog() {
         DialogFragment fragment = new HobbyFragment();
-
         fragment.show(getSupportFragmentManager(), "launch");
     }
 

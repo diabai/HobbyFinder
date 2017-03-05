@@ -27,7 +27,7 @@ import diabai.uw.tacoma.edu.hobbyfinder.user.User;
  * @version 2.0
  */
 public class MainActivity extends AppCompatActivity implements
-        LogInFragment.OnListFragmentInteractionListener,
+        LogInFragment.LogInFragmentInteractionListener,
         CreateAccountFragment.CreateAccountFragmentInteractionListener, HobbyFragment.UserHobbiesListener {
 
     private String hobbiesFromFragment;
@@ -85,12 +85,20 @@ public class MainActivity extends AppCompatActivity implements
                 .commit();
     }
 
+    /**
+     * Checking if a user exists in our database
+     * @param url
+     */
     @Override
     public void checkIfExists(String url) {
         HobbyFinderTask task = new HobbyFinderTask();
         task.execute(new String[]{url.toString()});
     }
 
+    /**
+     * Needed to prevent crash on nougat or emulator
+     * @param outState
+     */
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         // below line to be commented to prevent crash on nougat.
@@ -122,7 +130,6 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void passHobbies(String theUserHobbies) {
-
     }
 
 

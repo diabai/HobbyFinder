@@ -27,10 +27,10 @@ import java.util.List;
 
 
 /**
- *  User Fragment class
- *  This class contains the functionalities required to query user information from the server
+ * User Fragment class
+ * This class contains the functionalities required to query user information from the server
  *
- * @Author: Ibrahim Diabate
+ * @author: Ibrahim Diabate, Edgard Solorzano
  */
 public class UserFragment extends Fragment {
 
@@ -45,7 +45,7 @@ public class UserFragment extends Fragment {
             = "http://cssgate.insttech.washington.edu/~_450bteam1/getUsersByHobby.php?hobbies=";
     private RecyclerView mRecyclerView;
 
-    private  List<User> userList;
+    private List<User> userList;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -79,20 +79,19 @@ public class UserFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_user_list, container, false);
 
         // Set the adapter
-       if (view instanceof RecyclerView) {
+        if (view instanceof RecyclerView) {
             Context context = view.getContext();
             mRecyclerView = (RecyclerView) view;
             if (mColumnCount <= 1) {
-               mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
-           } else {
-               mRecyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-           }
+                mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
+            } else {
+                mRecyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
+            }
 
-
-           // Downloading the users information
+            // Downloading the users information
             DownloadUsersTask task = new DownloadUsersTask();
-           //We search for the first hobby selected
-           task.execute(new String[]{USERS_URL + Dashboard.getDashboardHobbies()[0]});
+            //We search for the first hobby selected
+            task.execute(new String[]{USERS_URL + Dashboard.getDashboardHobbies()[0]});
         }
         return view;
     }
@@ -126,9 +125,8 @@ public class UserFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnListUserListener {
-        // TODO: Update argument type and name
         void onListFragmentInteraction(User user);
-
+        void sendEmail(String email, String message);
     }
 
     /**
@@ -142,7 +140,7 @@ public class UserFragment extends Fragment {
             HttpURLConnection urlConnection = null;
             for (String url : urls) {
                 try {
-                    URL urlObject= new URL(url);
+                    URL urlObject = new URL(url);
                     urlConnection = (HttpURLConnection) urlObject.openConnection();
                     InputStream content = urlConnection.getInputStream();
 
@@ -162,6 +160,7 @@ public class UserFragment extends Fragment {
             }
             return response;
         }
+
         @Override
         protected void onPostExecute(String result) {
 
@@ -187,9 +186,6 @@ public class UserFragment extends Fragment {
                 mRecyclerView.setAdapter(new MyUserRecyclerViewAdapter(userList, mListener));
             }
         }
-
     }
-
-
-        }
+}
 

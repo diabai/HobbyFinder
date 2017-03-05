@@ -16,4 +16,27 @@
         android:layout_height="wrap_content"
         android:textAppearance="?attr/textAppearanceListItem" />
 
+    <TextView
+        android:id="@+id/gender_list_frag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?attr/textAppearanceListItem" />
+
+    <TextView
+        android:id="@+id/hometown_list_frag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?attr/textAppearanceListItem" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"/>
+
+    <!--<TextView-->
+        <!--android:id="@+id/hobbies_list_frag"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:textAppearance="?attr/textAppearanceListItem" />-->
+
 </LinearLayout>

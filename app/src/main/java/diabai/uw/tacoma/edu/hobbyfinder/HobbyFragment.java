@@ -3,14 +3,11 @@ package diabai.uw.tacoma.edu.hobbyfinder;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -177,9 +174,9 @@ public class HobbyFragment extends DialogFragment {
                             //Passing the array of selected hobbies to Dashboard class so that i can retrieve there later in UserFragment
                            ((Dashboard)getActivity()).setDashboardHobbies(splitHobbies);
 
-                            //Lauching the UserFinder activity (parent of UserFragment list)
-                            Intent intent = new Intent(getActivity(), UserFinder.class);
-                            //Passing the hobbies to UserFinder class
+                            //Lauching the UserFinderActivity activity (parent of UserFragment list)
+                            Intent intent = new Intent(getActivity(), UserFinderActivity.class);
+                            //Passing the hobbies to UserFinderActivity class
                             startActivity(intent);
                         } else if(getContext() instanceof EditProfileActivity) {
                             //EditActivity launched it

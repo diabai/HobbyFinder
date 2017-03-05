@@ -46,7 +46,7 @@ public class LogInFragment extends Fragment {
     private String mParam2;
 
     private ProfilePictureView mProfilePictureView;
-    private OnListFragmentInteractionListener mListener;
+    private LogInFragmentInteractionListener mListener;
     private CallbackManager mCallbackManager;
     private TextView mTxtView;
 
@@ -97,7 +97,13 @@ public class LogInFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         //Inflating the layout when this fragment is launched
-        return inflater.inflate(R.layout.fragment_log_in, container, false);
+        View view = inflater.inflate(R.layout.fragment_log_in, container, false);
+        if(isLoggedIn()) {
+            //check if user exist then bypass and go to dashboard
+            mListener.checkIfExists(buildCheckIfExistsUrl(view));
+        }
+
+        return view;
     }
 
     /**
@@ -117,11 +123,6 @@ public class LogInFragment extends Fragment {
         // Requesting permissions to access the following info from the user's facebook account
         mLoginButton.setReadPermissions(Arrays.asList(
                 "public_profile", "user_birthday", "user_friends"));
-
-        if(isLoggedIn()) {
-            //check if user exist then bypass and go to dashboard
-            mListener.checkIfExists(buildCheckIfExistsUrl(v));
-        }
 
         // Login button Callback to handle Login related events
         mLoginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
@@ -173,7 +174,6 @@ public class LogInFragment extends Fragment {
                 parameters.putString("fields", "id, name, email, gender, birthday");
                 request.setParameters(parameters);
                 request.executeAsync();
-
             }
 
             /**
@@ -225,8 +225,8 @@ public class LogInFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnListFragmentInteractionListener) {
-            mListener = (OnListFragmentInteractionListener) context;
+        if (context instanceof LogInFragmentInteractionListener) {
+            mListener = (LogInFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement CreateAccountFragmentInteractionListener");
@@ -274,16 +274,10 @@ public class LogInFragment extends Fragment {
     }
 
     /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
+     * Log in fragment interaction listener for
+     * creating a user and also checking if a user exists.
      */
-    public interface OnListFragmentInteractionListener {
+    public interface LogInFragmentInteractionListener {
         void setUser(User user);
         void checkIfExists(String url);
     }

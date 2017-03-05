@@ -87,6 +87,13 @@ public class User implements Serializable {
     }
 
     /**
+     * Sets the user name
+     */
+    public void setmName(String name) {
+        this.mName = name;
+    }
+
+    /**
      * Gets the user's email
      *
      * @return the user email
@@ -96,12 +103,27 @@ public class User implements Serializable {
     }
 
     /**
+     * Set the users email
+     */
+    public void setmEmail(String email) {
+        this.mEmail = email;
+    }
+
+
+    /**
      * Gets the user gender
      *
      * @return the user's gender
      */
     public String getmGender() {
         return mGender;
+    }
+
+    /**
+     * Set users gender
+     */
+    public void setmGender(String gender) {
+        this.mGender = gender;
     }
 
     /**

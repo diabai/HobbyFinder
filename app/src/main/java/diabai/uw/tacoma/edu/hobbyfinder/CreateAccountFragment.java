@@ -1,6 +1,7 @@
 package diabai.uw.tacoma.edu.hobbyfinder;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -16,8 +17,11 @@ import com.facebook.Profile;
 
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import diabai.uw.tacoma.edu.hobbyfinder.data.UserDB;
 import diabai.uw.tacoma.edu.hobbyfinder.user.User;
 
 /**
@@ -64,6 +68,10 @@ public class CreateAccountFragment extends Fragment  {
      * The user's hometown
      */
     private TextView mUserHomeTown;
+    private SharedPreferences mSharedPreferences;
+
+    private UserDB mCourseDB;
+    private List<User> mCourseList;
 
     /**
      * Default contructor
@@ -121,6 +129,8 @@ public class CreateAccountFragment extends Fragment  {
         mUserGender = (TextView) view.findViewById(R.id.create_gender);
         mUserHomeTown = (TextView) view.findViewById(R.id.create_hometown);
 
+
+
         Button addAccountButton = (Button) view.findViewById(R.id.add_account_frag_button);
         addAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -158,11 +168,12 @@ public class CreateAccountFragment extends Fragment  {
         // onStart is a good place to do this because the layout has already been
         // applied to the fragment at this point so we can safely call the method
         // below that sets the users text.
-        Bundle args = getArguments();
-        if (args != null) {
-            // Set the textviews to the user passed in
-            updateUserView((User) args.getSerializable(USER_SELECTED));
-        }
+//        Bundle args = getArguments();
+//        if (args != null) {
+//            // Set the textviews to the user passed in
+//            updateUserView((User) args.getSerializable(USER_SELECTED));
+//        }
+        updateUserView(null);
     }
 
     @Override
@@ -178,14 +189,20 @@ public class CreateAccountFragment extends Fragment  {
      * @param user user object with information
      */
     public void updateUserView(User user) {
+        mSharedPreferences = getActivity().getSharedPreferences(getString(R.string.LOGIN_PREFS)
+                , Context.MODE_PRIVATE);
+
         TextView userNameTextView = (TextView) getActivity().findViewById(R.id.create_name);
-        userNameTextView.setText(user.getmName());
+        userNameTextView.setText(Profile.getCurrentProfile().getName());
 
+        Map<String, ?> sharedPrefs = mSharedPreferences.getAll();
+        String email = (String) sharedPrefs.get(getString(R.string.EMAIL));
         TextView userEmailTextView = (TextView) getActivity().findViewById(R.id.create_email);
-        userEmailTextView.setText(user.getmEmail());
+        userEmailTextView.setText(email);
 
+        String gender = (String) sharedPrefs.get(getString(R.string.GENDER));
         TextView userGenderTextView = (TextView) getActivity().findViewById(R.id.create_gender);
-        userGenderTextView.setText(user.getmGender());
+        userGenderTextView.setText(gender);
     }
 
 
@@ -221,6 +238,10 @@ public class CreateAccountFragment extends Fragment  {
 
             sb.append("&hobbies=");
             sb.append(URLEncoder.encode(((MainActivity) getActivity()).getHobbiesFromFragment(), "UTF-8"));
+
+            mCourseDB.deleteUser();
+            mCourseDB.insertUser(userId, userEmail, userGender, userHometown,
+                    ((MainActivity) getActivity()).getHobbiesFromFragment());
         } catch (Exception e) {
             Log.w("CreateAccountFragment", "Something wrong with the url here");
         }

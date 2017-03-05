@@ -19,11 +19,14 @@
     <string name="edit_hobbies">Edit Hobbies</string>
     <string name="search_by_hobby">Search users by hobby</string>
     <string name="action_logout">Logout</string>
-    <string name="email_user">Contact to meet!</string>
+    <string name="email_user">Send a message!</string>
     <string name="share">Share</string>
 
+    <!--Used for shared prefs-->
     <string name="LOGIN_PREFS">diabai.uw.tacoma.edu.hobbyfinder.PREFS</string>
     <string name="LOGGEDIN">loggedin</string>
+    <string name="EMAIL">email</string>
+    <string name="GENDER">gender</string>
 
     <!--  ************************************************* -->
     <!-- For 3rd fragment MultiListDialog -->
@@ -35,8 +38,4 @@
     </array>
     <string name="submit">Submit</string>
     <string name="cancel">Cancel</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
 </resources>

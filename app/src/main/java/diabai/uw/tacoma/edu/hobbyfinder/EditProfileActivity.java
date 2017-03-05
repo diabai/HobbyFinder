@@ -32,6 +32,7 @@ public class EditProfileActivity extends AppCompatActivity implements
             = "http://cssgate.insttech.washington.edu/~_450bteam1/editUser.php?";
     private final static String USER_INFO =
             "http://cssgate.insttech.washington.edu/~_450bteam1/getUser.php?";
+    private String userId;
     private TextView mUserIdTextView;
     private TextView mUserNameTextView;
     private TextView mUserEmailTextView;
@@ -43,7 +44,7 @@ public class EditProfileActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
-        mUserIdTextView = (TextView) findViewById(R.id.edit_user_id);
+        //mUserIdTextView = (TextView) findViewById(R.id.edit_user_id);
         mUserNameTextView = (TextView) findViewById(R.id.edit_user_name);
         mUserEmailTextView = (TextView) findViewById(R.id.edit_email);
         mUserHometownTextView = (TextView) findViewById(R.id.edit_hometown);
@@ -81,7 +82,7 @@ public class EditProfileActivity extends AppCompatActivity implements
 
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject obj = jsonArray.getJSONObject(i);
-            mUserIdTextView.setText(obj.getString("id"));
+            userId = obj.getString("id");
             mUserNameTextView.setText(obj.getString("name"));
             mUserEmailTextView.setText(obj.getString("email"));
             mUserHometownTextView.setText(obj.getString("hometown"));
@@ -97,7 +98,13 @@ public class EditProfileActivity extends AppCompatActivity implements
      */
     public void editUser(View v) {
         EditUserTask task = new EditUserTask();
-        task.execute(buildEditUserURL());
+        if (!checkData()) {
+            task.execute(buildEditUserURL());
+        } else {
+            Toast.makeText(getApplicationContext(),
+                    "Make sure all fields are filled out (at least 1 hobby is selected)", Toast.LENGTH_LONG)
+                    .show();
+        }
 
         // Takes you back to the previous fragment by popping the current fragment out.
         getSupportFragmentManager().popBackStackImmediate();
@@ -111,6 +118,15 @@ public class EditProfileActivity extends AppCompatActivity implements
         return hobbiesFromFragment;
     }
 
+    public boolean checkData() {
+        return
+         //.isEmpty() || mUserIdTextView.getText() == null ||
+         mUserNameTextView.getText().toString().isEmpty() || mUserNameTextView.getText() == null ||
+         mUserEmailTextView.getText().toString().isEmpty() || mUserEmailTextView.getText() == null ||
+         mUserHometownTextView.getText().toString().isEmpty() || mUserHometownTextView.getText() == null ||
+         getHobbiesFromFragment() == null;
+    }
+
     /**
      * Builds the url for submiting editing of profile
      *
@@ -119,7 +135,7 @@ public class EditProfileActivity extends AppCompatActivity implements
     private String buildEditUserURL() {
         StringBuilder sb = new StringBuilder(USER_EDIT_URL);
         try {
-            String userId = mUserIdTextView.getText().toString();
+//            String userId = mUserIdTextView.getText().toString();
             sb.append("id=");
             sb.append(userId);
 
@@ -160,6 +176,7 @@ public class EditProfileActivity extends AppCompatActivity implements
 
     /**
      * Not really used in here but needed to implement
+     *
      * @param url url to create account
      */
     @Override

@@ -179,6 +179,8 @@ public class HobbyFragment extends DialogFragment {
                             //Passing the hobbies to UserFinderActivity class
                             startActivity(intent);
                         } else if(getContext() instanceof EditProfileActivity) {
+                            Toast.makeText(getActivity(), builder.toString(), Toast.LENGTH_LONG)
+                                    .show();
                             //EditActivity launched it
                             ((EditProfileActivity)getActivity()).setHobbies(builder.toString());
                         } else {

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="CREATE_USER_SQL">
+    CREATE TABLE IF NOT EXISTS User
+    (id TEXT PRIMARY KEY, name TEXT, email TEXT, hobbies TEXT)
+    </string>
+
+    <string name="DROP_USER_SQL">
+        DROP TABLE IF EXISTS User
+    </string>
+</resources>

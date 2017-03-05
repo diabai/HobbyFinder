@@ -1,7 +1,8 @@
-package diabai.uw.tacoma.edu.hobbyfinder;
+package diabai.uw.tacoma.edu.hobbyfinder.authenticate;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -20,7 +21,6 @@ import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.LoggingBehavior;
-import com.facebook.Profile;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.facebook.login.widget.ProfilePictureView;
@@ -30,6 +30,7 @@ import org.json.JSONObject;
 
 import java.util.Arrays;
 
+import diabai.uw.tacoma.edu.hobbyfinder.R;
 import diabai.uw.tacoma.edu.hobbyfinder.user.User;
 
 public class LogInFragment extends Fragment {
@@ -45,10 +46,12 @@ public class LogInFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    private String id;
     private ProfilePictureView mProfilePictureView;
     private LogInFragmentInteractionListener mListener;
     private CallbackManager mCallbackManager;
     private TextView mTxtView;
+    private SharedPreferences mSharedPreferences;
 
     /**
      * Default constructor
@@ -98,11 +101,10 @@ public class LogInFragment extends Fragment {
                              Bundle savedInstanceState) {
         //Inflating the layout when this fragment is launched
         View view = inflater.inflate(R.layout.fragment_log_in, container, false);
-        if(isLoggedIn()) {
+        if (isLoggedIn()) {
             //check if user exist then bypass and go to dashboard
             mListener.checkIfExists(buildCheckIfExistsUrl(view));
         }
-
         return view;
     }
 
@@ -147,22 +149,35 @@ public class LogInFragment extends Fragment {
 
                                 // Getting json objects into strings
                                 try {
-                                    String id = object.getString("id");
+                                    id = object.getString("id");
 
                                     // The line below will get all the fields available in the JSON object
                                     mProfilePictureView = (ProfilePictureView) getActivity().findViewById(R.id.pro_image);
                                     mProfilePictureView.setProfileId(id);
+
+                                    // saving the users info to the shared preference so to pass along
+                                    mSharedPreferences = getActivity().getSharedPreferences(getString(R.string.LOGIN_PREFS)
+                                            , Context.MODE_PRIVATE);
+                                    mSharedPreferences.edit()
+                                            .putBoolean(getString(R.string.LOGGEDIN), true)
+                                            .apply();
+                                    mSharedPreferences.edit()
+                                            .putString(getString(R.string.EMAIL), object.get("email").toString())
+                                            .apply();
+                                    mSharedPreferences.edit()
+                                            .putString(getString(R.string.GENDER), object.get("gender").toString())
+                                            .apply();
 
                                     //check if user exist then bypass and go to dashboard
                                     mListener.checkIfExists(buildCheckIfExistsUrl(v));
 
                                     // Once success is done we just send the user information
                                     // over to create account
-                                    mListener.setUser(new User(object.getString("id"),
-                                            object.getString("name"),
-                                            object.getString("email"),
-                                            object.getString("gender"),
-                                            "hometown"));
+//                                    mListener.setUser(new User(object.getString("id"),
+//                                            object.getString("name"),
+//                                            object.getString("email"),
+//                                            object.getString("gender"),
+//                                            "hometown"), buildCheckIfExistsUrl(v));
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
@@ -262,9 +277,9 @@ public class LogInFragment extends Fragment {
     private String buildCheckIfExistsUrl(View v) {
         StringBuilder sb = new StringBuilder(CHECK_IF_USER_EXISTS);
         try {
-            String userId = Profile.getCurrentProfile().getId();
+            //String userId = Profile.getCurrentProfile().getId();
             sb.append("id=");
-            sb.append(userId);
+            sb.append(id);
             Log.i("UserAddFragment", sb.toString());
         } catch (Exception e) {
             Toast.makeText(v.getContext(), "Something wrong with the url" + e.getMessage(), Toast.LENGTH_LONG)
@@ -278,7 +293,8 @@ public class LogInFragment extends Fragment {
      * creating a user and also checking if a user exists.
      */
     public interface LogInFragmentInteractionListener {
-        void setUser(User user);
+        void setUser(User user, String url);
+
         void checkIfExists(String url);
     }
 }

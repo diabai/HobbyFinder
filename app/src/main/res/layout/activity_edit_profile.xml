@@ -11,10 +11,10 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="diabai.uw.tacoma.edu.hobbyfinder.EditProfileActivity">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/edit_user_id" />
+    <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/edit_user_id" />-->
 
     <EditText
         android:layout_width="match_parent"

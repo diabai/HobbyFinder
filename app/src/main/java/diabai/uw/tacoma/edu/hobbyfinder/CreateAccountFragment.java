@@ -25,8 +25,8 @@ import diabai.uw.tacoma.edu.hobbyfinder.user.User;
  * <p>
  * This is class automatically launches when a user launches the app.
  *
- * @Author: Ibrahim Diabate, Edgard Solorzano
- * @version: 2.0
+ * @author Ibrahim Diabate, Edgard Solorzano
+ * @version 2.0
  */
 public class CreateAccountFragment extends Fragment  {
     private static final String ARG_PARAM1 = "param1";
@@ -186,9 +186,6 @@ public class CreateAccountFragment extends Fragment  {
 
         TextView userGenderTextView = (TextView) getActivity().findViewById(R.id.create_gender);
         userGenderTextView.setText(user.getmGender());
-
-        TextView userHomeTownTextView = (TextView) getActivity().findViewById(R.id.create_hometown);
-        userHomeTownTextView.setText(user.getmHomeTown());
     }
 
 

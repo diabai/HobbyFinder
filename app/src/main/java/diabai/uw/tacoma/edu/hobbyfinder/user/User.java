@@ -33,7 +33,7 @@ public class User implements Serializable {
     String mHobbies;
 
     public static final String ID = "id", NAME= "name"
-            , EMAIL = "email", GENDER = "gender", HOMETOWN = "hometown", HOBBIES = "hobbies";
+            , EMAIL = "email", GENDER = "gender", HOMETOWN = "hometown";
     /**
      * Constructor for the user object
      *
@@ -49,7 +49,6 @@ public class User implements Serializable {
         this.mEmail = mEmail;
         this.mGender = mGender;
         this.mHomeTown = mHomeTown;
-        this.mHobbies = mHobbies;
     }
 
     /**
@@ -126,6 +125,14 @@ public class User implements Serializable {
         this.mGender = gender;
     }
 
+
+    /**
+     * Set users gender
+     */
+    public void setmHometown(String hometown) {
+        this.mHomeTown = hometown;
+    }
+
     /**
      * Gets the user's hometown
      *
@@ -150,7 +157,6 @@ public class User implements Serializable {
                     JSONObject obj = arr.getJSONObject(i);
                     User user = new User(obj.getString(User.ID), obj.getString(User.NAME)
                             , obj.getString(User.EMAIL), obj.getString(User.GENDER),obj.getString(User.HOMETOWN));
-                  //  user.setmHobbies(obj.getString(User.HOBBIES)); // **gets the list of hobbies
                     userList.add(user);
                 }
             } catch (JSONException e) {

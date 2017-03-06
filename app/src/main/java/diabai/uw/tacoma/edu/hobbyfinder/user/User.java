@@ -29,8 +29,7 @@ public class User implements Serializable {
     //The user's hometown
     private String mHomeTown;
 
-    //The user's hobbies
-    String mHobbies;
+    private String mHobbies;
 
     public static final String ID = "id", NAME= "name"
             , EMAIL = "email", GENDER = "gender", HOMETOWN = "hometown";
@@ -49,22 +48,6 @@ public class User implements Serializable {
         this.mEmail = mEmail;
         this.mGender = mGender;
         this.mHomeTown = mHomeTown;
-    }
-
-    /**
-     * Get the user's hobbies
-     * @return the user hobbies
-     */
-    public String getmHobbies() {
-        return mHobbies;
-    }
-
-    /**
-     * Sets the user hobbies
-     * @param mHobbies the user hobbies
-     */
-    public void setmHobbies(String mHobbies) {
-        this.mHobbies = mHobbies;
     }
 
     /**

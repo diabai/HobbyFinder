@@ -1,5 +1,7 @@
 package diabai.uw.tacoma.edu.hobbyfinder.user;
 
+import android.util.Log;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -29,11 +31,10 @@ public class User implements Serializable {
     //The user's hometown
     private String mHomeTown;
 
-    //The user's hobbies
-    String mHobbies;
+    private String mHobbies;
 
     public static final String ID = "id", NAME= "name"
-            , EMAIL = "email", GENDER = "gender", HOMETOWN = "hometown", HOBBIES = "hobbies";
+            , EMAIL = "email", GENDER = "gender", HOMETOWN = "hometown";
     /**
      * Constructor for the user object
      *
@@ -49,23 +50,6 @@ public class User implements Serializable {
         this.mEmail = mEmail;
         this.mGender = mGender;
         this.mHomeTown = mHomeTown;
-        this.mHobbies = mHobbies;
-    }
-
-    /**
-     * Get the user's hobbies
-     * @return the user hobbies
-     */
-    public String getmHobbies() {
-        return mHobbies;
-    }
-
-    /**
-     * Sets the user hobbies
-     * @param mHobbies the user hobbies
-     */
-    public void setmHobbies(String mHobbies) {
-        this.mHobbies = mHobbies;
     }
 
     /**
@@ -126,6 +110,14 @@ public class User implements Serializable {
         this.mGender = gender;
     }
 
+
+    /**
+     * Set users gender
+     */
+    public void setmHometown(String hometown) {
+        this.mHomeTown = hometown;
+    }
+
     /**
      * Gets the user's hometown
      *
@@ -142,7 +134,9 @@ public class User implements Serializable {
      * @return reason or null if successful.
      */
     public static String parseUserJSON(String userJSON, List<User> userList) {
-        String reason = null;
+        String reason = "Success";
+
+
         if (userJSON != null) {
             try {
                 JSONArray arr = new JSONArray(userJSON);
@@ -150,12 +144,14 @@ public class User implements Serializable {
                     JSONObject obj = arr.getJSONObject(i);
                     User user = new User(obj.getString(User.ID), obj.getString(User.NAME)
                             , obj.getString(User.EMAIL), obj.getString(User.GENDER),obj.getString(User.HOMETOWN));
-                  //  user.setmHobbies(obj.getString(User.HOBBIES)); // **gets the list of hobbies
                     userList.add(user);
+
+
                 }
             } catch (JSONException e) {
                 reason =  "No user found with the hobby selected" ;
             }
+
         }
         return reason;
     }

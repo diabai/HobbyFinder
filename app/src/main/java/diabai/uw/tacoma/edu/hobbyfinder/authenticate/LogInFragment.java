@@ -152,8 +152,8 @@ public class LogInFragment extends Fragment {
                                     id = object.getString("id");
 
                                     // The line below will get all the fields available in the JSON object
-                                    mProfilePictureView = (ProfilePictureView) getActivity().findViewById(R.id.pro_image);
-                                    mProfilePictureView.setProfileId(id);
+                                  /*  mProfilePictureView = (ProfilePictureView) getActivity().findViewById(R.id.pro_image);
+                                    mProfilePictureView.setProfileId(id);*/
 
                                     // saving the users info to the shared preference so to pass along
                                     mSharedPreferences = getActivity().getSharedPreferences(getString(R.string.LOGIN_PREFS)

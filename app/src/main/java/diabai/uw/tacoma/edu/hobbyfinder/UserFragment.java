@@ -175,7 +175,7 @@ public class UserFragment extends Fragment {
             userList = new ArrayList<User>();
             result = User.parseUserJSON(result, userList);
             // Something wrong with the JSON returned.
-            if (result != null) {
+            if (!result.equals("Success")) {
                 Toast.makeText(getActivity().getApplicationContext(), result, Toast.LENGTH_LONG)
                         .show();
                 return;

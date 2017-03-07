@@ -1,47 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:facebook="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/login_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:orientation="vertical"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="@drawable/background"
-    tools:context="diabai.uw.tacoma.edu.hobbyfinder.authenticate.LogInFragment"
-    android:weightSum="1">
+    android:weightSum="1"
+    tools:context="diabai.uw.tacoma.edu.hobbyfinder.authenticate.LogInFragment">
 
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="238dp"
         android:id="@+id/img_view"
-       android:layout_gravity="top"
-        android:src="@mipmap/ic_launcher"
-         />
+        android:layout_width="wrap_content"
+        android:layout_height="185dp"
+        android:layout_gravity="center"
+        android:src="@drawable/hobby_logo"/>
 
 
     <TextView
         android:id="@+id/log_in_txtView"
+        style="@style/TextColor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/login_button"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dp"
         android:layout_marginBottom="194dp"
-       android:layout_marginLeft="105dp"
-        android:text="Hobby Finder"
-        style="@style/TextColor"
-        android:gravity="center_vertical" />
+        android:layout_gravity="center"
+        android:gravity="center_vertical"
+        android:text="Hobby Finder" />
 
     <com.facebook.login.widget.LoginButton
         android:id="@+id/login_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="19dp" />
+        android:layout_marginBottom="50dp" />
 </LinearLayout>

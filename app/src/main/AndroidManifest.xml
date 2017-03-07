@@ -28,8 +28,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".Dashboard" />
-        <activity android:name=".EditProfileActivity" />
-        <activity android:name=".UserFinderActivity"></activity>
+        <activity android:name=".EditProfileActivity"
+            android:windowSoftInputMode="stateVisible|adjustResize">
+            android:windowSoftInputMode="adjustPan"
+        </activity>
+        <activity android:name=".UserFinderActivity"/>
     </application>
 
 </manifest>

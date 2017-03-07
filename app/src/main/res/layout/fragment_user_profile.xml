@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/background"
     tools:context="diabai.uw.tacoma.edu.hobbyfinder.UserProfileFragment">
 
     <com.facebook.login.widget.ProfilePictureView
@@ -12,21 +13,18 @@
         android:scrollbarSize="@dimen/com_facebook_profilepictureview_preset_size_large"
         android:layout_gravity="center" />
 
-    <!--<TextView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:id="@+id/profile_user_id" />-->
-
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/user_name_hint"
+        style="@style/TextColor"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:id="@+id/profile_user_name" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        style="@style/TextColor"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:id="@+id/profile_gender"/>
 
@@ -34,6 +32,7 @@
         android:id="@+id/profile_hometown"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        style="@style/TextColor"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
@@ -41,6 +40,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/message"
+        style="@style/TextColor"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <EditText
@@ -49,6 +49,7 @@
         android:layout_height="wrap_content"
         android:gravity="top"
         android:inputType="textMultiLine"
+        style="@style/TextColor"
         android:lines="5" />
 
     <Button

@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/background"
     tools:context=".CreateAccountFragment">
 
     <!--Text view of App title-->
@@ -12,6 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/app_name"
+        style="@style/TextColor"
         android:ems="20"/>
 
     <!--First name can enter or take from facebook-->
@@ -19,6 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/first_name_hint"
+        style="@style/TextColor"
         android:id="@+id/create_name" />
 
     <!--email can enter or take from facebook-->
@@ -27,18 +30,21 @@
         android:layout_height="wrap_content"
         android:hint="@string/email_hint"
         android:id="@+id/create_email"
+        style="@style/TextColor"
         android:inputType="textEmailAddress" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/gender_hint"
+        style="@style/TextColor"
         android:id="@+id/create_gender" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/hometown_hint"
+        style="@style/TextColor"
         android:id="@+id/create_hometown" />
 
     <Button

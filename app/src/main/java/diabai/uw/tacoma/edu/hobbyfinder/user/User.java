@@ -1,5 +1,7 @@
 package diabai.uw.tacoma.edu.hobbyfinder.user;
 
+import android.util.Log;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -132,7 +134,9 @@ public class User implements Serializable {
      * @return reason or null if successful.
      */
     public static String parseUserJSON(String userJSON, List<User> userList) {
-        String reason = null;
+        String reason = "Success";
+
+        Log.i(userJSON, "User JSON to string");
         if (userJSON != null) {
             try {
                 JSONArray arr = new JSONArray(userJSON);
@@ -141,10 +145,13 @@ public class User implements Serializable {
                     User user = new User(obj.getString(User.ID), obj.getString(User.NAME)
                             , obj.getString(User.EMAIL), obj.getString(User.GENDER),obj.getString(User.HOMETOWN));
                     userList.add(user);
+
+
                 }
             } catch (JSONException e) {
                 reason =  "No user found with the hobby selected" ;
             }
+
         }
         return reason;
     }

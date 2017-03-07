@@ -1,8 +1,12 @@
 package diabai.uw.tacoma.edu.hobbyfinder;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import diabai.uw.tacoma.edu.hobbyfinder.user.User;
 
@@ -74,5 +78,12 @@ public class UserTest {
     public void testUserGetHometown() {
         assertEquals("Kent, WA", mUser.getmHomeTown());
     }
+
+
+    @Test@Ignore
+    public void testParseUserJSON() {
+      assertEquals("Success", mUser.parseUserJSON("[{\"id\":\"106272993238110\",\"name\":\"Homer Simpson\",\"email\":\"edgards@uw.edu\",\"gender\":\"male\",\"hometown\":\"Springfield\",\"hobbies\":\"Baking, Biking, Board games, Climbing, Coding, Coin collecting, Cooking, Cricket, Dancing, Deep web, Drawing, Fishing, Fishkeeping, Football, Hacking, Hunting, Insects, Jogging, Juggling, Kayaking, Laughing, Magic, Martial arts, Motor sports, Paintball, Painting, Parkour, Photography, Pottery, Singing, Skiing, Soccer, Surfing, Tennis, Traveling, Video gaming, Videophilia, Walking, Water sports, Web surfing, Wine tasting, Woodworking, Writing, Yo-yoing, \"}]", new ArrayList<User>()));
+    }
+
 
 }

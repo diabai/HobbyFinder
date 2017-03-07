@@ -19,6 +19,7 @@
     <string name="edit_hobbies">Edit Hobbies</string>
     <string name="search_by_hobby">Search users by hobby</string>
     <string name="action_logout">Logout</string>
+    <string name="message">Message:</string>
     <string name="email_user">Send a message!</string>
     <string name="share">Share</string>
 

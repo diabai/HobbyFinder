@@ -33,10 +33,8 @@ public class MyUserRecyclerViewAdapter extends RecyclerView.Adapter<MyUserRecycl
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
         holder.mNameView.setText(mValues.get(position).getmName());
-        holder.mEmailView.setText(mValues.get(position).getmEmail());
         holder.mGender.setText(mValues.get(position).getmGender());
         holder.mHometown.setText(mValues.get(position).getmHomeTown());
-        //holder.mHobbies.setText(mValues.get(position).getmHobbies());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,10 +59,8 @@ public class MyUserRecyclerViewAdapter extends RecyclerView.Adapter<MyUserRecycl
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
         public final TextView mNameView;
-        public final TextView mEmailView;
         public final TextView mGender;
         public final TextView mHometown;
-        //public final TextView mHobbies;
 
 
         public User mItem;
@@ -73,15 +69,13 @@ public class MyUserRecyclerViewAdapter extends RecyclerView.Adapter<MyUserRecycl
             super(view);
             mView = view;
             mNameView = (TextView) view.findViewById(R.id.name_list_frag);
-            mEmailView = (TextView) view.findViewById(R.id.email_list_frag);
             mGender = (TextView) view.findViewById(R.id.gender_list_frag);
             mHometown = (TextView) view.findViewById(R.id.hometown_list_frag);
-            //mHobbies = (TextView) view.findViewById(R.id.hobbies_list_frag);
         }
 
         @Override
         public String toString() {
-            return super.toString() + " '" + mEmailView.getText() + "'";
+            return super.toString() + "'";
         }
     }
 }

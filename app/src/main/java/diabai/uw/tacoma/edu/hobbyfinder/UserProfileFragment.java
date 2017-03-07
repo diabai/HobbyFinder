@@ -11,6 +11,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.Profile;
+import com.facebook.login.widget.ProfilePictureView;
+
 import diabai.uw.tacoma.edu.hobbyfinder.user.User;
 
 import static diabai.uw.tacoma.edu.hobbyfinder.UserFragment.*;
@@ -126,11 +129,17 @@ public class UserProfileFragment extends Fragment {
      * @param user user object with information
      */
     public void updateUserView(User user) {
+        ProfilePictureView mProfilePictureView = (ProfilePictureView) getActivity().findViewById(R.id.profile_image_profile_frag);
+        mProfilePictureView.setProfileId(user.getmId());
+
         TextView userNameTextView = (TextView) getActivity().findViewById(R.id.profile_user_name);
         userNameTextView.setText(user.getmName());
         mUser.setmName(user.getmName());
 
         mUser.setmEmail(user.getmEmail());
+
+        TextView userHometownTextView = (TextView) getActivity().findViewById(R.id.profile_hometown);
+        userHometownTextView.setText(user.getmHomeTown());
 
         TextView userGenderTextView = (TextView) getActivity().findViewById(R.id.profile_gender);
         userGenderTextView.setText(user.getmGender());

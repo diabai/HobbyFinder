@@ -2,17 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:background="@drawable/background"
     android:orientation="vertical">
 
     <TextView
         android:id="@+id/name_list_frag"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:textAppearance="?attr/textAppearanceListItem" />
-
-    <TextView
-        android:id="@+id/email_list_frag"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
@@ -36,12 +30,6 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginBottom="22dp"
-        android:background="@android:color/darker_gray"/>
-
-    <!--<TextView-->
-        <!--android:id="@+id/hobbies_list_frag"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:textAppearance="?attr/textAppearanceListItem" />-->
+        android:background="@color/colorAccent"/>
 
 </LinearLayout>

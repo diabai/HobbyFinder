@@ -86,7 +86,7 @@ public class EditProfileActivity extends AppCompatActivity implements
             mUserNameTextView.setText(obj.getString("name"));
             mUserEmailTextView.setText(obj.getString("email"));
             mUserHometownTextView.setText(obj.getString("hometown"));
-            mUserHobbiesTextView.setText(obj.getString("hobbies"));
+            mUserHobbiesTextView.setText(obj.getString("hobbies").replaceAll(", $", ""));
         }
     }
 
@@ -105,7 +105,6 @@ public class EditProfileActivity extends AppCompatActivity implements
                     "Make sure all fields are filled out (at least 1 hobby is selected)", Toast.LENGTH_LONG)
                     .show();
         }
-
         // Takes you back to the previous fragment by popping the current fragment out.
         getSupportFragmentManager().popBackStackImmediate();
     }
@@ -120,7 +119,6 @@ public class EditProfileActivity extends AppCompatActivity implements
 
     public boolean checkData() {
         return
-         //.isEmpty() || mUserIdTextView.getText() == null ||
          mUserNameTextView.getText().toString().isEmpty() || mUserNameTextView.getText() == null ||
          mUserEmailTextView.getText().toString().isEmpty() || mUserEmailTextView.getText() == null ||
          mUserHometownTextView.getText().toString().isEmpty() || mUserHometownTextView.getText() == null ||
@@ -135,7 +133,6 @@ public class EditProfileActivity extends AppCompatActivity implements
     private String buildEditUserURL() {
         StringBuilder sb = new StringBuilder(USER_EDIT_URL);
         try {
-//            String userId = mUserIdTextView.getText().toString();
             sb.append("id=");
             sb.append(userId);
 

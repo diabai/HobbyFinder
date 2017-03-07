@@ -35,13 +35,4 @@
         android:id="@+id/btn_search"
         android:layout_marginBottom="14dp"
         android:onClick="launch"/>
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="@string/share"
-        android:id="@+id/btn_share"
-        android:layout_marginBottom="14dp"
-        android:onClick="launch"/>
 </LinearLayout>

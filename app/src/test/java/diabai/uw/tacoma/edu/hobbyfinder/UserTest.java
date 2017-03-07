@@ -1,9 +1,15 @@
 package diabai.uw.tacoma.edu.hobbyfinder;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import org.mockito.Matchers;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +17,7 @@ import java.util.List;
 import diabai.uw.tacoma.edu.hobbyfinder.user.User;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.when;
 
 
 /**
@@ -21,11 +28,20 @@ import static org.junit.Assert.*;
  */
 public class UserTest {
 
+
+    @Mock
+    JSONArray mJsonArray;
+
+    @Mock
+    JSONObject jsonObject;
+
     private User mUser = null;
      @Before
     public void setUp() {
          mUser =  new User("0123456789", "Ibrahim", "diabai@uw.edu", "Male", "Kent, WA");
-    }
+         MockitoAnnotations.initMocks(this);
+
+     }
     @Test
     public void testAccountConstructor() {
         assertNotNull(mUser);
@@ -80,9 +96,16 @@ public class UserTest {
     }
 
 
-    @Test@Ignore
+    @Test
     public void testParseUserJSON() {
-      assertEquals("Success", mUser.parseUserJSON("[{\"id\":\"106272993238110\",\"name\":\"Homer Simpson\",\"email\":\"edgards@uw.edu\",\"gender\":\"male\",\"hometown\":\"Springfield\",\"hobbies\":\"Baking, Biking, Board games, Climbing, Coding, Coin collecting, Cooking, Cricket, Dancing, Deep web, Drawing, Fishing, Fishkeeping, Football, Hacking, Hunting, Insects, Jogging, Juggling, Kayaking, Laughing, Magic, Martial arts, Motor sports, Paintball, Painting, Parkour, Photography, Pottery, Singing, Skiing, Soccer, Surfing, Tennis, Traveling, Video gaming, Videophilia, Walking, Water sports, Web surfing, Wine tasting, Woodworking, Writing, Yo-yoing, \"}]", new ArrayList<User>()));
+        try {
+            when(mJsonArray.length()).thenReturn(0);
+            when(mJsonArray.getJSONObject(Matchers.anyInt())).thenReturn(jsonObject);
+            when(jsonObject.getString(User.ID)).thenReturn(mUser.getmId());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+      //assertEquals("Success", mUser.parseUserJSON("[{\"id\":\"106272993238110\",\"name\":\"Homer Simpson\",\"email\":\"edgards@uw.edu\",\"gender\":\"male\",\"hometown\":\"Springfield\",\"hobbies\":\"Baking, Biking, Board games, Climbing, Coding, Coin collecting, Cooking, Cricket, Dancing, Deep web, Drawing, Fishing, Fishkeeping, Football, Hacking, Hunting, Insects, Jogging, Juggling, Kayaking, Laughing, Magic, Martial arts, Motor sports, Paintball, Painting, Parkour, Photography, Pottery, Singing, Skiing, Soccer, Surfing, Tennis, Traveling, Video gaming, Videophilia, Walking, Water sports, Web surfing, Wine tasting, Woodworking, Writing, Yo-yoing, \"}]", new ArrayList<User>()));
     }
 
 

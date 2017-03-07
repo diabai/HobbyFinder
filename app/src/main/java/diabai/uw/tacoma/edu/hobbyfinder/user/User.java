@@ -136,7 +136,7 @@ public class User implements Serializable {
     public static String parseUserJSON(String userJSON, List<User> userList) {
         String reason = "Success";
 
-        Log.i(userJSON, "User JSON to string");
+
         if (userJSON != null) {
             try {
                 JSONArray arr = new JSONArray(userJSON);

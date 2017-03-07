@@ -11,16 +11,17 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:background="@drawable/background"
-    tools:context="diabai.uw.tacoma.edu.hobbyfinder.authenticate.LogInFragment">
+    tools:context="diabai.uw.tacoma.edu.hobbyfinder.authenticate.LogInFragment"
+    android:weightSum="1">
 
 
-    <com.facebook.login.widget.ProfilePictureView
-        android:id="@+id/pro_image"
+    <ImageView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:scrollbarSize="@dimen/com_facebook_profilepictureview_preset_size_large"
-        android:layout_gravity="center" />
+        android:layout_height="238dp"
+        android:id="@+id/img_view"
+       android:layout_gravity="top"
+        android:src="@mipmap/ic_launcher"
+         />
 
 
     <TextView

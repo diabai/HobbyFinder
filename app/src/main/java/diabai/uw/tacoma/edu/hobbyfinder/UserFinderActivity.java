@@ -19,6 +19,10 @@ public class UserFinderActivity extends AppCompatActivity implements
 
     String s = null;
 
+    /**
+     * Lifecycle method first called once this Activity is launched.
+     * @param savedInstanceState data that might have been passed from other activities/fragments
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,12 +36,20 @@ public class UserFinderActivity extends AppCompatActivity implements
         }
     }
 
+    /**
+     * Passes the hobbies from a fragment to here
+     * @param theUserHobbies the user hobbies passed
+     */
     @Override
     public void passHobbies(String theUserHobbies) {
         s = theUserHobbies;
 
     }
 
+    /**
+     * Gets the user hobbies
+     * @return
+     */
     public String getHobbiesPassForSearch() {
         return s;
     }

@@ -40,12 +40,24 @@ public class UserFragment extends Fragment {
     // TODO: Customize parameters
     private int mColumnCount = 1;
 
+    /**
+     * Listener object
+     */
     private OnListUserListener mListener;
+    /**
+     * URL to query user information
+     */
     private static final String USERS_URL
             = "http://cssgate.insttech.washington.edu/~_450bteam1/getUsersByHobby.php?hobbies=";
+    /**
+     * Recycler view object.
+     */
     private RecyclerView mRecyclerView;
 
-    private List<User> userList;
+    /**
+     * List of users
+     */
+    private List<User> mUserList;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -54,8 +66,11 @@ public class UserFragment extends Fragment {
     public UserFragment() {
     }
 
-    // TODO: Customize parameter initialization
-    @SuppressWarnings("unused")
+    /**
+     * Unused auto-generated method
+     * @param columnCount
+     * @return
+     */
     public static UserFragment newInstance(int columnCount) {
         UserFragment fragment = new UserFragment();
         Bundle args = new Bundle();
@@ -64,6 +79,10 @@ public class UserFragment extends Fragment {
         return fragment;
     }
 
+    /**
+     * Lifecycle method first called once fragment is launched
+     * @param savedInstanceState data passed from other fragments/activities
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,6 +92,13 @@ public class UserFragment extends Fragment {
         }
     }
 
+    /**
+     * Displayes this fragment's data
+     * @param inflater Inflates the fragment
+     * @param container the fragment holder
+     * @param savedInstanceState data passed to this fragment
+     * @return view this fragment
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -97,6 +123,10 @@ public class UserFragment extends Fragment {
     }
 
 
+    /**
+     * Lifecycle method called once the fragment appears to the screen
+     * @param context the context
+     */
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -172,8 +202,8 @@ public class UserFragment extends Fragment {
                 return;
             }
 
-            userList = new ArrayList<User>();
-            result = User.parseUserJSON(result, userList);
+            mUserList = new ArrayList<User>();
+            result = User.parseUserJSON(result, mUserList);
             // Something wrong with the JSON returned.
             if (!result.equals("Success")) {
                 Toast.makeText(getActivity().getApplicationContext(), result, Toast.LENGTH_LONG)
@@ -182,8 +212,8 @@ public class UserFragment extends Fragment {
             }
 
             // Everything is good, show the list of users.
-            if (!userList.isEmpty()) {
-                mRecyclerView.setAdapter(new MyUserRecyclerViewAdapter(userList, mListener));
+            if (!mUserList.isEmpty()) {
+                mRecyclerView.setAdapter(new MyUserRecyclerViewAdapter(mUserList, mListener));
             }
         }
     }

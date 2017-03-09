@@ -15,9 +15,17 @@ import com.facebook.Profile;
 import com.facebook.login.LoginManager;
 import com.facebook.login.widget.ProfilePictureView;
 
+/**
+ * DashBoard class.
+ * @author: Ibrahim D., Edgard S.
+ * This class is contains the main screen that users see when the first log in to the app, if they already registered for an account
+ */
 public class Dashboard extends AppCompatActivity {
 
-    private static String[] hobbies;
+    /**
+     * Array of hobbies.
+     */
+    private static String[] mHobbies;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +36,11 @@ public class Dashboard extends AppCompatActivity {
         mProfilePictureView.setProfileId(Profile.getCurrentProfile().getId());
     }
 
+    /**
+     * Menu bar.
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -64,11 +77,11 @@ public class Dashboard extends AppCompatActivity {
     }
 
     public void setDashboardHobbies(String[] s) {
-        hobbies = s;
+        mHobbies = s;
     }
 
     public static String[] getDashboardHobbies() {
-        return hobbies;
+        return mHobbies;
     }
 
     /**

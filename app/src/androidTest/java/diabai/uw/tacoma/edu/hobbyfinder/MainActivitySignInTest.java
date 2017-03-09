@@ -10,6 +10,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.Random;
+
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
@@ -22,7 +24,6 @@ import static android.support.test.espresso.matcher.ViewMatchers.withId;
 @RunWith(AndroidJUnit4.class)
 @LargeTest
 public class MainActivitySignInTest {
-
 
 /*
      * A JUnit {@link Rule @Rule} to launch your activity under test.
@@ -42,12 +43,22 @@ public class MainActivitySignInTest {
     public void logout() {
        onView(withId(R.id.action_logout))
                .perform(click());
+    }
+
+    @Test
+    public void testRegister() {
+
+        Random random = new Random();
+        //Generate an email address
+        String email = "email" + (random.nextInt(4) + 1)
+                + (random.nextInt(9) + 1) + (random.nextInt(7) + 1)
+                + (random.nextInt(4) + 1) + (random.nextInt(100) + 1)
+                + "@uw.edu";
 
     }
 
 
 
 
-
-}
+    }
 

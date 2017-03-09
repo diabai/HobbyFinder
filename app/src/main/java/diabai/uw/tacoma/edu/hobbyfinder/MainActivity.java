@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity implements
     /**
      * Checking if a user exists in our database
      *
-     * @param url
+     * @param url the user passed to check for user's existence in our database
      */
     @Override
     public void checkIfExists(String url) {
@@ -129,10 +129,18 @@ public class MainActivity extends AppCompatActivity implements
         //super.onSaveInstanceState(outState);
     }
 
+    /**
+     * Setter for hobbies passed
+     * @param s the hobbies passed
+     */
     public void setHobbies(String s) {
         hobbiesFromFragment = s;
     }
 
+    /**
+     * Getter for hobbies passed
+     * @return the suer hobbies
+     */
     public String getHobbiesFromFragment() {
         return hobbiesFromFragment;
     }

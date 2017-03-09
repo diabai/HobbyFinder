@@ -26,20 +26,49 @@ import java.util.concurrent.ExecutionException;
 
 import static diabai.uw.tacoma.edu.hobbyfinder.CreateAccountFragment.*;
 
+/**
+ * EditProfile Activity
+ * This activity contains the features available to a user wishing to edit his/her profile information
+ */
 public class EditProfileActivity extends AppCompatActivity implements
         CreateAccountFragmentInteractionListener {
     private final static String USER_EDIT_URL
             = "http://cssgate.insttech.washington.edu/~_450bteam1/editUser.php?";
     private final static String USER_INFO =
             "http://cssgate.insttech.washington.edu/~_450bteam1/getUser.php?";
+    /**
+     * User ID textView
+     */
     private String userId;
+
     private TextView mUserIdTextView;
+    /**
+     * User name textView
+     */
     private TextView mUserNameTextView;
+    /**
+     * User email textView
+     */
     private TextView mUserEmailTextView;
+    /**
+     * User hometown textView
+     */
     private TextView mUserHometownTextView;
+    /**
+     * User hobbies textView
+     */
     private TextView mUserHobbiesTextView;
+
+    /**
+     * User hobbies
+     */
     private String hobbiesFromFragment;
 
+
+    /**
+     * Lifecycle method first called once the activity starts.
+     * @param savedInstanceState data that might have been passed from another afctivity/fragment
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +80,7 @@ public class EditProfileActivity extends AppCompatActivity implements
         mUserHobbiesTextView = (TextView) findViewById(R.id.edit_hobbies);
 
         /*
-            Below calling the get for getting users information to
+            Gets users information to
             put in edit text views
          */
         EditUserTask task = new EditUserTask();
@@ -75,7 +104,7 @@ public class EditProfileActivity extends AppCompatActivity implements
      * Populating the text views with user information
      *
      * @param result string from the json
-     * @throws JSONException
+     * @throws JSONException Exception thrown when something goes wrong while updating a user profile
      */
     public void populateUserInfo(String result) throws JSONException {
         JSONArray jsonArray = new JSONArray(result);
@@ -94,7 +123,7 @@ public class EditProfileActivity extends AppCompatActivity implements
      * Editing user information by submitting
      * to the EditUserTask
      *
-     * @param v view
+     * @param v view object
      */
     public void editUser(View v) {
         EditUserTask task = new EditUserTask();
@@ -109,14 +138,26 @@ public class EditProfileActivity extends AppCompatActivity implements
         getSupportFragmentManager().popBackStackImmediate();
     }
 
+    /**
+     * Setter for user hobbies
+     * @param s the new hobbies
+     */
     public void setHobbies(String s) {
         hobbiesFromFragment = s;
     }
 
+    /**
+     * Getter for user hobbies
+     * @return the user's hobbies
+     */
     public String getHobbiesFromFragment() {
         return hobbiesFromFragment;
     }
 
+    /**
+     * Checks validity of data passed
+     * @return true if valid otherwise false
+     */
     public boolean checkData() {
         return
          mUserNameTextView.getText().toString().isEmpty() || mUserNameTextView.getText() == null ||
@@ -160,9 +201,9 @@ public class EditProfileActivity extends AppCompatActivity implements
     }
 
     /**
-     * Used to prevent crash on nougat
+     * Used to prevent crash on nougat devices
      *
-     * @param outState
+     * @param outState a bundle object
      */
     @Override
     protected void onSaveInstanceState(Bundle outState) {

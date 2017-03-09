@@ -59,7 +59,10 @@ public class HobbyFragment extends DialogFragment {
             = "http://cssgate.insttech.washington.edu/~_450bteam1/user_hobbies.php?";
 
 
-    UserHobbiesListener hobbiesListener;
+    /**
+     * The fragment listener
+     */
+    UserHobbiesListener mHobbiesListener;
     /*
      * Fields automatically generated once fragment is created
      */
@@ -105,7 +108,7 @@ public class HobbyFragment extends DialogFragment {
         }
 
         try {
-            hobbiesListener = (UserHobbiesListener) getTargetFragment();
+            mHobbiesListener = (UserHobbiesListener) getTargetFragment();
         } catch (Exception e) {
             throw new ClassCastException("Calling Fragment must implement UserHobbiesListener");
         }
@@ -224,7 +227,7 @@ public class HobbyFragment extends DialogFragment {
     }
 
     /**
-     *
+     *The fragment's listener interface.
      */
     public interface UserHobbiesListener {
         void passHobbies(String theUserHobbies);

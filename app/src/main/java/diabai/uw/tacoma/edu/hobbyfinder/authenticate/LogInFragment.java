@@ -33,6 +33,13 @@ import java.util.Arrays;
 import diabai.uw.tacoma.edu.hobbyfinder.R;
 import diabai.uw.tacoma.edu.hobbyfinder.user.User;
 
+/**
+ *
+ * Login Fragment.
+ * This class contains the features displayed when a user logs in to the Hobby Finder app.
+ * @Author: Ibrahim Diabate, Edgard Solorzano
+ * @version: 2.0
+ */
 public class LogInFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -46,7 +53,7 @@ public class LogInFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private String id;
+    private String mId;
     private ProfilePictureView mProfilePictureView;
     private LogInFragmentInteractionListener mListener;
     private CallbackManager mCallbackManager;
@@ -142,19 +149,14 @@ public class LogInFragment extends Fragment {
                             public void onCompleted(JSONObject object, GraphResponse response) {
                                 FacebookSdk.addLoggingBehavior(LoggingBehavior.REQUESTS);
 
-                                //To see   permissions are enabled
+                                //To see which permissions are enabled
                                 Log.v("onCompleted ****",
                                         AccessToken.getCurrentAccessToken()
                                                 .getPermissions().toString());
 
                                 // Getting json objects into strings
                                 try {
-                                    id = object.getString("id");
-
-                                    // The line below will get all the fields available in the JSON object
-                                  /*  mProfilePictureView = (ProfilePictureView) getActivity().findViewById(R.id.pro_image);
-                                    mProfilePictureView.setProfileId(id);*/
-
+                                    mId = object.getString("id");
                                     // saving the users info to the shared preference so to pass along
                                     mSharedPreferences = getActivity().getSharedPreferences(getString(R.string.LOGIN_PREFS)
                                             , Context.MODE_PRIVATE);
@@ -171,13 +173,6 @@ public class LogInFragment extends Fragment {
                                     //check if user exist then bypass and go to dashboard
                                     mListener.checkIfExists(buildCheckIfExistsUrl(v));
 
-                                    // Once success is done we just send the user information
-                                    // over to create account
-//                                    mListener.setUser(new User(object.getString("id"),
-//                                            object.getString("name"),
-//                                            object.getString("email"),
-//                                            object.getString("gender"),
-//                                            "hometown"), buildCheckIfExistsUrl(v));
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
@@ -279,7 +274,7 @@ public class LogInFragment extends Fragment {
         try {
             //String userId = Profile.getCurrentProfile().getId();
             sb.append("id=");
-            sb.append(id);
+            sb.append(mId);
             Log.i("UserAddFragment", sb.toString());
         } catch (Exception e) {
             Toast.makeText(v.getContext(), "Something wrong with the url" + e.getMessage(), Toast.LENGTH_LONG)

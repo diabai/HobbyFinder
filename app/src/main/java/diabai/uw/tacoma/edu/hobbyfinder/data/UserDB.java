@@ -13,7 +13,9 @@ import diabai.uw.tacoma.edu.hobbyfinder.R;
 import diabai.uw.tacoma.edu.hobbyfinder.user.User;
 
 /**
- * Created by edgards on 3/5/17.
+ * UserDB
+ * @author : Edgard Solorzano
+ * @version: 2.0
  */
 
 public class UserDB {
@@ -24,6 +26,10 @@ public class UserDB {
     private UserDBHelper mUserDBHelper;
     private SQLiteDatabase mSQLiteDatabase;
 
+    /**
+     * Constructor for UserDB
+     * @param context the context passed as parameter
+     */
     public UserDB(Context context) {
         mUserDBHelper = new UserDBHelper(
                 context, DB_NAME, null, DB_VERSION);
@@ -33,11 +39,11 @@ public class UserDB {
     /**
      * Inserts the course into the local sqlite table. Returns true if successful, false otherwise.
      *
-     * @param id
-     * @param email
-     * @param gender
-     * @param hometown
-     * @return true or false
+     * @param id the user's id
+     * @param email the user's email
+     * @param gender the user's gender
+     * @param hometown the user's hometown
+     * @return true if user successfully added to the DB otherwise false
      */
     public boolean insertUser(String id, String email, String gender, String hometown, String hobbies) {
         ContentValues contentValues = new ContentValues();
@@ -62,7 +68,7 @@ public class UserDB {
     /**
      * Returns the list of courses from the local User table.
      *
-     * @return list
+     * @return list a list of users
      */
     public List<User> getUser() {
 
@@ -96,6 +102,9 @@ public class UserDB {
         return list;
     }
 
+    /**
+     * Inner class to store the user's data locally
+     */
     class UserDBHelper extends SQLiteOpenHelper {
 
         private final String CREATE_USER_SQL;
@@ -108,11 +117,21 @@ public class UserDB {
             DROP_USER_SQL = context.getString(R.string.DROP_USER_SQL);
         }
 
+        /**
+         * This lifecycle methods gets called first once this class is instantiated
+         * @param sqLiteDatabase the SQLite database object
+         */
         @Override
         public void onCreate(SQLiteDatabase sqLiteDatabase) {
             sqLiteDatabase.execSQL(CREATE_USER_SQL);
         }
 
+        /**
+         *  Updates the database.
+         * @param sqLiteDatabase
+         * @param i
+         * @param i1
+         */
         @Override
         public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
             sqLiteDatabase.execSQL(DROP_USER_SQL);

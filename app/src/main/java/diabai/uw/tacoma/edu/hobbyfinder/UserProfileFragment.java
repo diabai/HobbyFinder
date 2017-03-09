@@ -27,18 +27,36 @@ import static diabai.uw.tacoma.edu.hobbyfinder.UserFragment.*;
  * @author Edgard S, Ibrahim D
  */
 public class UserProfileFragment extends Fragment {
+
+    /**
+     * Unused auto-generated constants
+     */
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    /**
+     * Constant to detect when a user has been selected
+     */
     public final static String USER_ITEM_SELECTED = "user_selected";
 
 
-    // TODO: Rename and change types of parameters
+    /**
+     * Unused auto-generated fields
+     */
     private String mParam1;
     private String mParam2;
+    /**
+     * User object
+     */
     private User mUser;
+    /**
+     * The listener
+     */
     private OnListUserListener mListener;
 
 
+    /**
+     * Default constructor.
+     */
     public UserProfileFragment() {
         // Required empty public constructor
     }
@@ -61,6 +79,10 @@ public class UserProfileFragment extends Fragment {
         return fragment;
     }
 
+    /**
+     * Lifecycle method - unused
+     * @param savedInstanceState data passed to this fragment
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,6 +92,9 @@ public class UserProfileFragment extends Fragment {
         }
     }
 
+    /**
+     * Lifecycle method called when the fragment gets launched
+     */
     @Override
     public void onStart() {
         super.onStart();
@@ -81,6 +106,13 @@ public class UserProfileFragment extends Fragment {
         }
     }
 
+    /**
+     * The fragment features to display
+     * @param inflater the fragment inflater
+     * @param container the fragment that will hold this fragment
+     * @param savedInstanceState data passed from different fragment
+     * @return view this fragment
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -105,6 +137,10 @@ public class UserProfileFragment extends Fragment {
         return view;
     }
 
+    /**
+     * Lifecycle method called when fragment is launched and appears on the screen
+     * @param context the context
+     */
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -116,6 +152,9 @@ public class UserProfileFragment extends Fragment {
         }
     }
 
+    /**
+     * Lifecycle method called once the fragment is removed from the screen.
+     */
     @Override
     public void onDetach() {
         super.onDetach();

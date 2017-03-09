@@ -154,14 +154,15 @@ public class HobbyFragment extends DialogFragment {
                     .setPositiveButton(R.string.submit, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int id) {
-                            //If dashboard activity launches this fragment
-                            //Splitting the hobbies string on commas and white spaces
-                            String[] splitHobbies = mSelectedItems.get(0).toString().split("\\s*,\\s*");
+                            String[] splitHobbies = (mSelectedItems.isEmpty() ?
+                                    mArray[0] : mSelectedItems.get(0))
+                                    .toString().split("\\s*,\\s*");
 
-                            //Passing the array of selected hobbies to Dashboard class so that i can retrieve there later in UserFragment
+                            //Passing the array of selected hobbies to Dashboard class so that
+                            // I can retrieve there later in UserFragment
                             ((Dashboard) getActivity()).setDashboardHobbies(splitHobbies);
 
-                            //Lauching the UserFinderActivity activity (parent of UserFragment list)
+                            //Launching the UserFinderActivity activity (parent of UserFragment list)
                             Intent intent = new Intent(getActivity(), UserFinderActivity.class);
                             //Passing the hobbies to UserFinderActivity class
                             startActivity(intent);

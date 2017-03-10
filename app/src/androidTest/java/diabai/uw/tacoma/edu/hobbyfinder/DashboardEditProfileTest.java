@@ -36,7 +36,7 @@ import static org.hamcrest.core.IsNot.not;
 @LargeTest
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 
-public class MainActivityLoginTest {
+public class DashboardEditProfileTest {
 
 
     @Rule

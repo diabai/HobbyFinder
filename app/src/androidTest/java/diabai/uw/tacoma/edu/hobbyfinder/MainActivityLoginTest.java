@@ -24,7 +24,11 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.core.IsNot.not;
 
 /**
- * Created by Ibrahim on 3/8/2017.
+ * Instrumentation test for Dashboard. This class launches the dashboardActivity which then launches the edit profile activity and
+ * fills the editTexts then clicks submit.
+ * @Author: Ibrahim Diabate
+ * @version: 2.0
+ *
  */
 
 

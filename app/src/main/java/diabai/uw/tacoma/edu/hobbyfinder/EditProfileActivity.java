@@ -79,6 +79,10 @@ public class EditProfileActivity extends AppCompatActivity implements
         mUserHometownTextView = (TextView) findViewById(R.id.edit_hometown);
         mUserHobbiesTextView = (TextView) findViewById(R.id.edit_hobbies);
 
+        Toast.makeText(getApplicationContext(),
+                "Edit profile", Toast.LENGTH_SHORT)
+                .show();
+
         /*
             Gets users information to
             put in edit text views
@@ -285,8 +289,7 @@ public class EditProfileActivity extends AppCompatActivity implements
                 String status = (String) jsonObject.get("result");
                 Log.w("EditProfileActivity", "Grabbed user info successfully");
                 if ("User edited success".equals(status)) {
-                    Toast.makeText(getApplicationContext(), "User info edited successfully"
-                            , Toast.LENGTH_LONG).show();
+
                     finish();
                     startActivity(getIntent());
                 }

@@ -87,7 +87,6 @@ public class Dashboard extends AppCompatActivity {
     /**
      * This method gets launched one a users clicks the search button
      */
-    //TODO: Rename this to a better name, maybe submitSearch
     public void launch(View v) {
         DialogFragment fragment = null;
 

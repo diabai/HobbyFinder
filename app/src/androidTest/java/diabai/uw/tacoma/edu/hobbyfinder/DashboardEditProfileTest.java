@@ -1,7 +1,5 @@
 package diabai.uw.tacoma.edu.hobbyfinder;
 
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
@@ -24,10 +22,11 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.core.IsNot.not;
 
 /**
- * Instrumentation test for Dashboard. This class launches the dashboardActivity which then launches the edit profile activity and
+ * Instrumentation test for Dashboard. This class launches the dashboardActivity
+ * which then launches the edit profile activity and
  * fills the editTexts then clicks submit.
- * @Author: Ibrahim Diabate
- * @version: 2.0
+ * @author Ibrahim Diabate
+ * @version 2.0
  *
  */
 
@@ -64,12 +63,4 @@ public class DashboardEditProfileTest {
                 .perform(click());
 
     }
-
-
-
-
-
-
-
-
 }

@@ -2,7 +2,6 @@ package diabai.uw.tacoma.edu.hobbyfinder;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -16,8 +15,6 @@ import android.widget.Toast;
 import com.facebook.Profile;
 
 import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -288,14 +285,7 @@ public class CreateAccountFragment extends Fragment  {
     }
 
     /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
+     * The interface for Creating accounts interaction listener
      */
     public interface CreateAccountFragmentInteractionListener {
         void createAccount(String url); // Once a user hits the submit account button.

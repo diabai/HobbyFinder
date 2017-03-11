@@ -254,7 +254,7 @@ public class HobbyFragment extends DialogFragment {
 
     /**
      * DownloadHobbiesTask inner class.
-     * <p>
+     *
      * Gets the hobbies from the database and calls a method within it
      * to parse out the hobbies from json format to a list.
      */

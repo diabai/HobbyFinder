@@ -15,7 +15,7 @@ import diabai.uw.tacoma.edu.hobbyfinder.user.User;
 /**
  * UserDB
  * @author : Edgard Solorzano
- * @version: 2.0
+ * @version 2.0
  */
 
 public class UserDB {

@@ -13,8 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import diabai.uw.tacoma.edu.hobbyfinder.UserFragment.OnListUserListener;
-
 import diabai.uw.tacoma.edu.hobbyfinder.user.User;
 
 import java.io.BufferedReader;
@@ -30,7 +28,7 @@ import java.util.List;
  * User Fragment class
  * This class contains the functionalities required to query user information from the server
  *
- * @author: Ibrahim Diabate, Edgard Solorzano
+ * @author Ibrahim Diabate, Edgard Solorzano
  */
 public class UserFragment extends Fragment {
 

@@ -18,7 +18,8 @@ import com.facebook.login.widget.ProfilePictureView;
 /**
  * DashBoard class.
  * @author: Ibrahim D., Edgard S.
- * This class is contains the main screen that users see when the first log in to the app, if they already registered for an account
+ * This class is contains the main screen that users see when the first log in to the app,
+ * if they already registered for an account
  */
 public class Dashboard extends AppCompatActivity {
 

@@ -37,8 +37,8 @@ import diabai.uw.tacoma.edu.hobbyfinder.user.User;
  *
  * Login Fragment.
  * This class contains the features displayed when a user logs in to the Hobby Finder app.
- * @Author: Ibrahim Diabate, Edgard Solorzano
- * @version: 2.0
+ * @author  Ibrahim Diabate, Edgard Solorzano
+ * @version 2.0
  */
 public class LogInFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";

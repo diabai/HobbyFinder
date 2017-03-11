@@ -16,8 +16,8 @@ import java.util.List;
  * This class contains the functionality to create and manipulate a User object
  *
  *
- * @Author: Ibrahim Diabate, Edgard Solorzano
- * @version: 2.0
+ * @author Ibrahim Diabate, Edgard Solorzano
+ * @version 2.0
  */
 public class User implements Serializable {
     //The user's id
@@ -136,7 +136,6 @@ public class User implements Serializable {
     public static String parseUserJSON(String userJSON, List<User> userList) {
         String reason = "Success";
 
-
         if (userJSON != null) {
             try {
                 JSONArray arr = new JSONArray(userJSON);
@@ -145,13 +144,10 @@ public class User implements Serializable {
                     User user = new User(obj.getString(User.ID), obj.getString(User.NAME)
                             , obj.getString(User.EMAIL), obj.getString(User.GENDER),obj.getString(User.HOMETOWN));
                     userList.add(user);
-
-
                 }
             } catch (JSONException e) {
                 reason =  "No user found with the hobby selected" ;
             }
-
         }
         return reason;
     }

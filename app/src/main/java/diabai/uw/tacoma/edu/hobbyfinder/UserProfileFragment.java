@@ -11,7 +11,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.facebook.Profile;
 import com.facebook.login.widget.ProfilePictureView;
 
 import diabai.uw.tacoma.edu.hobbyfinder.user.User;

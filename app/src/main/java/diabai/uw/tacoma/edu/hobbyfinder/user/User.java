@@ -1,7 +1,5 @@
 package diabai.uw.tacoma.edu.hobbyfinder.user;
 
-import android.util.Log;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
